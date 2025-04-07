@@ -22,7 +22,7 @@ function App() {
 
   useEffect(() => {
     // Only handle auto-login if not on login page
-    if (window.location.pathname !== '/login') {
+    // if (window.location.pathname !== '/login') {
       const userData = localStorage.getItem("userData");
       const token = localStorage.getItem("token");
   
@@ -48,7 +48,7 @@ function App() {
           navigate(redirectPath);
         }
       }
-    }
+    // }
   }, []);
 
   return (
