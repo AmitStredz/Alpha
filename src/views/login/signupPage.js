@@ -121,6 +121,7 @@ export default function SignupPage() {
         timestamp: new Date().getTime(),
         email: inputs.email,
       });
+      console.log("api key", process.env.REACT_APP_BREVO_API_KEY);
 
       // Brevo configuration
       const brevoConfig = {

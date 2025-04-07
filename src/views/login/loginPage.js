@@ -18,6 +18,8 @@ export default function LoginPage() {
   const [passwordType, setPasswordType] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccessModal, setIsSuccessModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [successTitle, setSuccessTitle] = useState("Login Successful");
   const [errorMessage, setErrorMessage] = useState("");
   const [inputs, setInputs] = useState({
     email_or_phone: "",
@@ -26,6 +28,13 @@ export default function LoginPage() {
 
   const auth = useAuth();
   const navigate = useNavigate();
+
+  // Mark the login as complete when component unmounts
+  useEffect(() => {
+    return () => {
+      sessionStorage.removeItem("loginInProgress");
+    };
+  }, []);
 
   // Add this function to handle Binance connection
   const connectBinance = async (apiKey, apiSecret, token) => {
@@ -53,25 +62,57 @@ export default function LoginPage() {
     }
   };
 
+  const handleNavigateAfterLogin = (userData) => {
+    // Determine where to redirect based on user status
+    let redirectPath = '/dashboard'; // Default path
+    let message = "";
+    
+    // Check if user has a subscription plan
+    if (userData.plan === null) {
+      redirectPath = '/pricing';
+      message = "Redirecting to subscription plans...";
+    } 
+    // If user has a plan but hasn't connected to Binance
+    else if (userData.binance_connected === false) {
+      redirectPath = '/connect-binance';
+      message = "Redirecting to Binance connection...";
+    }
+    
+    // Show success message with appropriate text
+    setSuccessMessage(message);
+    setIsSuccessModal(true);
+    
+    // Redirect after a short delay
+    setTimeout(() => {
+      console.log("navigating to:", redirectPath);
+      setIsSuccessModal(false);
+      
+      // Set login as complete before redirecting
+      sessionStorage.removeItem("loginInProgress");
+      
+      // Only set the auth context after showing the success message and right before navigating
+      auth.login(userData);
+      navigate(redirectPath);
+    }, 2000);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMessage("");
+    
+    // Set flag indicating login is in progress to prevent unwanted redirects
+    sessionStorage.setItem("loginInProgress", "true");
 
     console.log("inpts", inputs);
 
     if (!inputs.email_or_phone || !inputs.password) {
       setErrorMessage("Please fill in all fields");
       setIsLoading(false);
+      sessionStorage.removeItem("loginInProgress");
       return;
     }
 
-    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    // if (!emailRegex.test(inputs.email_or_phone)) {
-    //   setErrorMessage("Please enter a valid email");
-    //   setIsLoading(false);
-    //   return;
-    // }
     try {
       const response = await axios.post(`${BASE_URL}/api/users/login/`, inputs);
       if (response?.status === 200) {
@@ -79,13 +120,23 @@ export default function LoginPage() {
         localStorage.setItem("token", data?.token);
         localStorage.setItem("userData", JSON.stringify(data));
 
-        if (
-          data?.binance_connected === true &&
-          data?.binance_api_key &&
-          data?.binance_api_secret
-        ) {
+        // Step 1: Check if user has a plan
+        if (data?.plan === null) {
+          // No subscription plan, redirect to pricing
+          handleNavigateAfterLogin(data);
+        }
+        // Step 2: Check if Binance is connected
+        else if (data?.binance_connected === false) {
+          // No Binance connection, redirect to connect-binance
+          handleNavigateAfterLogin(data);
+        }
+        // Step 3: User has plan and Binance is marked as connected
+        else if (data?.binance_connected === true && 
+                data?.binance_api_key && 
+                data?.binance_api_secret) {
+          
           console.log("Attempting to connect to Binance...");
-
+          // Try to connect to Binance automatically
           const binanceConnected = await connectBinance(
             data.binance_api_key,
             data.binance_api_secret,
@@ -93,23 +144,36 @@ export default function LoginPage() {
           );
 
           if (binanceConnected) {
+            // Binance connection successful, redirect to dashboard
+            setSuccessMessage("Connected to Binance!");
             setIsSuccessModal(true);
             setTimeout(() => {
-              console.log("navigating....");
+              console.log("navigating to dashboard");
               setIsSuccessModal(false);
-              navigate("/dashboard");
+              
+              // Set login as complete before redirecting
+              sessionStorage.removeItem("loginInProgress");
+              
+              // Only set auth context right before navigating
               auth.login(data);
+              navigate("/dashboard");
             }, 2000);
           } else {
-            setErrorMessage("Binance connection failed. Try again");
+            // Binance connection failed, show error
+            setErrorMessage("Binance connection failed. Please reconnect your API keys.");
+            setTimeout(() => {
+              // Set login as complete before redirecting
+              sessionStorage.removeItem("loginInProgress");
+              
+              // Only set auth context right before navigating
+              auth.login(data);
+              navigate("/connect-binance");
+            }, 2000);
           }
-        } else {
-          setIsSuccessModal(true);
-          setTimeout(() => {
-            setIsSuccessModal(false);
-            navigate("/connect-binance");
-            auth.login(data);
-          }, 2000);
+        }
+        // Step 4: Default case - just go to dashboard
+        else {
+          handleNavigateAfterLogin(data);
         }
       }
     } catch (err) {
@@ -117,6 +181,7 @@ export default function LoginPage() {
       setErrorMessage(
         err?.response?.data?.error || "Login failed. Please try again."
       );
+      sessionStorage.removeItem("loginInProgress");
     } finally {
       setIsLoading(false);
     }
@@ -233,22 +298,6 @@ export default function LoginPage() {
                 </a>
               </p>
             </div>
-
-            {/* Social Icons */}
-            {/* <div className="flex justify-center mt-8 space-x-4 text-white bg-white w-full h-full ">
-            <button className="bg-white w-96 h-96">
-              <i className="fab fa-instagram"></i>
-            </button>
-            <button >
-              <i className="fab fa-facebook"></i>
-            </button>
-            <button >
-              <i className="fab fa-twitter"></i>
-            </button>
-            <button >
-              <i className="fab fa-google"></i>
-            </button>
-          </div> */}
           </div>
         </div>
       </div>
@@ -277,7 +326,7 @@ export default function LoginPage() {
         </div>
       </div>
       {isSuccessModal && (
-        <ConfirmModal title="Login Successful" isClose={false} />
+        <ConfirmModal title={successTitle} message1={successMessage} isClose={false} />
       )}
     </div>
   );

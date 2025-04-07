@@ -5,52 +5,164 @@ import Footer from "../../components/footer/footer";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { FaCircleCheck } from "react-icons/fa6";
 import HomeHeader from "../../components/navbar/homeHeader";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export default function Pricing() {
   const [isPaymentModal, setIsPaymentModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
   const cardList = [
     {
-      title: "Life Time Plan",
-      primaryPrice: "$500.00",
-      secondaryPrice: "$600.00",
+      title: "Alpha Robotics Trading Bot",
+      plan: "One Year Plan",
+      primaryPrice: "₹15250.00",
+      secondaryPrice: "+ 18% GST  ₹2745.00",
+      totalInPaise: 1799500,
       descriptionList: [
-        "Everything in Innovator, plus",
-        "Competitoe Benchmarking",
-        "Holistic Market Visualization",
-        "Adaptive Stategy Planner",
-        "24/7 Priority Support",
+        "Access to Alpha Trading Bot for 12 months",
+        "Smart AI-based trading strategies",
+        "Real-time market monitoring",
+        "Automatic trade execution",
+        "24/7 customer support",
       ],
-      planType: "1_year",
     },
-    {
-      title: "1 Year Plan",
-      primaryPrice: "$200.00",
-      secondaryPrice: "$300.00",
-      descriptionList: [
-        "Everything in Innovator, plus",
-        "Competitoe Benchmarking",
-        "Holistic Market Visualization",
-        "Adaptive Stategy Planner",
-        "24/7 Priority Support",
-      ],
-      planType: "lifetime",
-    },
+    // {
+    //   title: "Life Time Plan",
+    //   primaryPrice: "$500.00",
+    //   secondaryPrice: "$600.00",
+    //   descriptionList: [
+    //     "Everything in Innovator, plus",
+    //     "Competitoe Benchmarking",
+    //     "Holistic Market Visualization",
+    //     "Adaptive Stategy Planner",
+    //     "24/7 Priority Support",
+    //   ],
+    //   planType: "1_year",
+    // },
+    // {
+    //   title: "1 Year Plan",
+    //   primaryPrice: "$200.00",
+    //   secondaryPrice: "$300.00",
+    //   descriptionList: [
+    //     "Everything in Innovator, plus",
+    //     "Competitoe Benchmarking",
+    //     "Holistic Market Visualization",
+    //     "Adaptive Stategy Planner",
+    //     "24/7 Priority Support",
+    //   ],
+    //   planType: "lifetime",
+    // },
   ];
 
   const pricingFooter = ["Free trial", "Cancel anytime", "Support included"];
+
+  const handleBuyNow = async () => {
+    let userData = JSON.parse(localStorage.getItem("userData"));
+
+    if (!userData) {
+      alert("Please login again.");
+      setLoading(false);
+      navigate("/login");
+      // window.location.reload();
+      localStorage.clear();
+      return;
+    }
+    try {
+      setLoading(true);
+
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Please login first.");
+        setLoading(false);
+        return;
+      }
+      const headers = { Authorization: `Token ${token}` };
+
+      const createOrderResp = await axios.post(
+        "https://dca-alpha-bot-aa0c6c561214.herokuapp.com/api/users/create-razorpay-order/",
+        {
+          amount: cardList[0].totalInPaise,
+          currency: "INR",
+        },
+        { headers }
+      );
+
+      const { order_id, amount, currency } = createOrderResp.data;
+      console.log("createOrderResp", createOrderResp);
+
+      const options = {
+        key: "rzp_test_i2PpkMQpHSbv4w",
+        amount: amount,
+        currency: currency,
+        name: "Alpha Robotics LLP",
+        description: "One Year Plan",
+        order_id: order_id,
+        handler: async function (response) {
+          const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
+            response;
+          console.log("Razorpay success:", response);
+
+          try {
+            const verifyResp = await axios.post(
+              "https://dca-alpha-bot-aa0c6c561214.herokuapp.com/api/users/payment-success/",
+              {
+                razorpay_payment_id,
+                razorpay_order_id,
+                razorpay_signature,
+              },
+              { headers }
+            );
+            if (verifyResp.data.message) {
+              alert("Payment success! Subscription activated.");
+              console.log("Before update:", userData);
+              userData.plan = "1_year"; // Set to whatever plan value you need
+              localStorage.setItem("userData", JSON.stringify(userData));
+              navigate("/connect-binance");
+              // window.location.reload();
+            }
+          } catch (err) {
+            console.error("Verification error:", err?.response?.data);
+            alert(
+              "Error verifying payment. Contact support if money was deducted."
+            );
+          }
+        },
+        prefill: {
+          // prefill your user's info
+          name: userData.username,
+          email: userData.email,
+          contact: userData.phone_number,
+        },
+        notes: {
+          plan: "One Year Plan",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error("Error creating Razorpay order:", error);
+      alert("Error creating order. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center text-white font-aclonica justify-center h-full bg-gradient-to-br from-[#0D3225] via-[#172631] to-[#545767]  overflow-hidden">
       <HomeHeader />
 
-      <div className="flex flex-col gap-5 items-center p-3 sm:p-20 w-full">
+      <div className="flex flex-col gap-5 sm:gap-10 items-center p-3 sm:p-20 w-full">
         <div className="text-center text-white">
           <h1 className="text-[18px] sm:text-4xl font-bold">
             Start making <span className="text-green-400">smarter</span>{" "}
-            decisions,
+            decisions
           </h1>
-          <h2 className="text-[18px] sm:text-4xl font-bold">Choose a plan</h2>
+          {/* <h2 className="text-[18px] sm:text-4xl font-bold">Choose a plan</h2> */}
         </div>
 
         {/* Pricing Cards */}
@@ -58,23 +170,30 @@ export default function Pricing() {
           {cardList?.map((items, index) => (
             <div
               key={index}
-              className=" bg-white rounded-xl p-3 sm:p-5 sm:px-10 flex flex-col gap-3 items-center"
+              className=" bg-white rounded-xl p-3 sm:p-5 sm:px-10 flex flex-col gap-3 items-center sm:w-[25rem]"
             >
               <div>
-                <h3 className="text-xl font-sans font-400 text-gray-800 text-center">
+                <h3 className="text-xl font-400 text-gray-800 text-center">
                   {items.title}
                 </h3>
+                <h2 className="text-lg font-400 text-gray-800 text-center">
+                  {items.plan}
+                </h2>
                 <div className="flex items-end">
                   <span className="text-3xl font-bold text-green-500">
                     {items.primaryPrice}/
                   </span>
-                  <span className="text-gray-500">{items.secondaryPrice}</span>
+                  <span className="text-[14px] text-gray-500 text-center">
+                    {items.secondaryPrice}
+                  </span>
                 </div>
               </div>
               <div className="w-full h-[1px] bg-slate-400"></div>
               <ul className="text-gray-700 space-y-2">
                 {items.descriptionList?.map((desc, index) => (
-                  <li key={index} className="text-[14px] sm:text-[16px]">✔ {desc}</li>
+                  <li key={index} className="text-[14px] sm:text-[16px]">
+                    ✔ {desc}
+                  </li>
                 ))}
               </ul>
               <div
@@ -83,10 +202,16 @@ export default function Pricing() {
                     ? "bg-gradient-to-b from-[#1BAA4C] to-[#34CD69] text-white"
                     : "border border-slate-400"
                 }`}
-                onClick={() => setIsPaymentModal(true)}
+                onClick={handleBuyNow}
               >
-                <span>Buy Now</span>
-                <IoIosArrowRoundForward size={30} />
+                {loading ? (
+                  "Processing..."
+                ) : (
+                  <>
+                    <span>Buy Now</span>
+                    <IoIosArrowRoundForward size={30} />
+                  </>
+                )}
               </div>
             </div>
           ))}

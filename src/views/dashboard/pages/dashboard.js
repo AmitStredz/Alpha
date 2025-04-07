@@ -14,6 +14,7 @@ import { RotatingLines } from "react-loader-spinner";
 import TradeCyclesBar from "../components/TradeCyclesBar";
 import PanicBar from "../components/PanicBar";
 import TradeHistoryBar from "../components/TradeHistoryBar";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
   const [userData, setUserData] = useState(null);
@@ -34,21 +35,24 @@ export default function Dashboard() {
   const [remainingUsdt, setRemainingUsdt] = useState(null);
   const [fetchTradeCycleData, setFetchTradeCycleData] = useState(true);
 
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      alert("token not found. Please login again");
+      navigate("/login");
+      window.location.reload();
+      localStorage.clear();
+      return;
+    }
+  }, []);
+
   // /binance/data
   const fetchUserData = async () => {
     // e.preventDefault();
     // if (isLoading) return;
     // setIsLoading(true);
-
-    const token = localStorage.getItem("token");
-    console.log("token: ", token);
-
-    if (!token) {
-      alert("token not found. Please login again");
-      // setIsLoading(false);
-      return;
-    }
-
     try {
       const response = await axios.get(`${BASE_URL}/binance/data/`, {
         headers: {
@@ -71,15 +75,6 @@ export default function Dashboard() {
     // e.preventDefault();
     // if (isLoading) return;
     // setIsLoading(true);
-
-    const token = localStorage.getItem("token");
-    console.log("token: ", token);
-
-    if (!token) {
-      alert("token not found. Please login again");
-      // setIsLoading(false);
-      return;
-    }
 
     try {
       console.log("fetching balance...");
@@ -106,15 +101,6 @@ export default function Dashboard() {
     // e.preventDefault();
     // if (isLoading) return;
     // setIsLoading(true);
-
-    const token = localStorage.getItem("token");
-    console.log("token: ", token);
-
-    if (!token) {
-      alert("token not found. Please login again");
-      // setIsLoading(false);
-      return;
-    }
 
     try {
       const response = await axios.post(
@@ -224,15 +210,20 @@ export default function Dashboard() {
           <div className="my-3 sm:my-5">
             <SuccessBar />
           </div>
-          
+
           <div className="grid grid-cols-3 gap-1 sm:gap-3 w-full my-3 sm:my-5  text-start">
             <div className="flex items-center gap-1 sm:gap-3 p-2 sm:p-5 rounded-lg bg-white">
               <div className="p-1 sm:p-2 rounded-full bg-green-600 flex-shrink-0">
-                <SiTether color="white" size={window.innerWidth < 640 ? 20 : 40} />
+                <SiTether
+                  color="white"
+                  size={window.innerWidth < 640 ? 20 : 40}
+                />
               </div>
 
               <div className="flex flex-col items-start text-[12px] sm:text-[20px] min-w-0">
-                <span className="font-medium whitespace-nowrap">Total USDT:</span>
+                <span className="font-medium whitespace-nowrap">
+                  Total USDT:
+                </span>
                 <span className="text-[9px] sm:text-[14px] text-center text-slate-400 -mt-1 sm:-mt-2 ml-1 hidden sm:block">
                   in your binance
                 </span>
@@ -241,14 +232,19 @@ export default function Dashboard() {
                 </span>
               </div>
             </div>
-            
+
             <div className="flex items-center gap-1 sm:gap-3 p-2 sm:p-5 rounded-lg bg-white">
               <div className="p-1 sm:p-2 rounded-full bg-yellow-500 flex-shrink-0">
-                <RiBnbFill color="white" size={window.innerWidth < 640 ? 20 : 40} />
+                <RiBnbFill
+                  color="white"
+                  size={window.innerWidth < 640 ? 20 : 40}
+                />
               </div>
 
               <div className="flex flex-col items-start text-[12px] sm:text-[20px] min-w-0">
-                <span className="font-medium whitespace-nowrap">Total BNB:</span>
+                <span className="font-medium whitespace-nowrap">
+                  Total BNB:
+                </span>
                 <span className="text-[9px] sm:text-[14px] text-center text-slate-400 -mt-1 sm:-mt-2 ml-1 hidden sm:block">
                   in your binance
                 </span>
@@ -257,7 +253,7 @@ export default function Dashboard() {
                 </span>
               </div>
             </div>
-            
+
             <button
               disabled={
                 botisLoading ||
@@ -273,8 +269,12 @@ export default function Dashboard() {
               }`}
               onClick={() => handleStartBotClick()}
             >
-              <div className="p-1 sm:p-2 rounded-xl bg-white hidden sm:block">
-                <img src="/hello3.png" alt="logo" className="w-8 h-8 sm:w-12 sm:h-12" />
+              <div className="flex items-center justify-center rounded-xl bg-white w-10 h-10 sm:w-16 sm:h-16">
+                <img
+                  src="/hello3.png"
+                  alt="logo"
+                  className="w-8 sm:w-10 h-full aspect-square object-cover"
+                />
               </div>
               {botisLoading ? (
                 <div className="flex justify-center">
@@ -289,7 +289,7 @@ export default function Dashboard() {
                   />
                 </div>
               ) : (
-                <span className="text-white text-[12px] sm:text-[20px] font-medium whitespace-nowrap overflow-hidden text-ellipsis">
+                <span className="text-white text-[12px] sm:text-[20px] font-medium  overflow-hidden text-ellipsis">
                   {botStatus?.toLowerCase() === "active" ||
                   botStatus?.toUpperCase() === "in progress"
                     ? `Bot is ${botStatus}`
@@ -298,7 +298,7 @@ export default function Dashboard() {
               )}
             </button>
           </div>
-          
+
           <div className="my-3 sm:my-5">
             <TradeCyclesBar
               setCurrentProfit={(e) => setCurrentProfit(e)}

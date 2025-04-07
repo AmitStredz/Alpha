@@ -36,6 +36,9 @@ export default function ConnectBinance() {
     if (!token) {
       alert("token not found. Please login again");
       setIsLoading(false);
+      navigate("/login");
+      // window.location.reload();
+      localStorage.clear();
       return;
     }
 
@@ -54,10 +57,14 @@ export default function ConnectBinance() {
 
       console.log("response: ", response);
       if (response?.status === 200) {
+        let userData = JSON.parse(localStorage.getItem("userData"));
+        userData.binance_connected = true; // Set to whatever plan value you need
+        localStorage.setItem("userData", JSON.stringify(userData));
         setIsSuccessModal(true);
         setTimeout(() => {
           setIsSuccessModal(false);
           navigate("/dashboard");
+          // window.location.reload();
         }, 3000);
       }
     } catch (error) {

@@ -39,7 +39,7 @@ const ActivitySideBar = ({ status, reason, liveMarketPrice, tradeCycleNo }) => {
           </div>
         </div>
       </div>
-      <hr class="border-alphaGray " />
+      <hr className="border-alphaGray " />
       <div className="py-2 px-4">
         <div className="flex flex-col">
           <div className=" flex flex-row justify-start gap-4 items-center">
