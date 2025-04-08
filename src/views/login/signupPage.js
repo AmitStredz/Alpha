@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./login.css";
 import axios from "axios";
 import { useAuth } from "../auth/AuthProvider";
-import { BASE_URL, SIGN_UP_URL } from "../../api/api";
+import { BASE_URL } from "../../api/api";
 import { RotatingLines } from "react-loader-spinner";
 import ConfirmModal from "../../components/modals/confirmModal";
 import FailureModal from "../../components/modals/failureModal";

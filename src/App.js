@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider } from "./views/auth/AuthProvider";
+import { Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./views/auth/ProtectedRoute";
 import PublicRoute from "./views/auth/PublicRoute";
 import "./App.css";
@@ -52,7 +51,6 @@ function App() {
   }, []);
 
   return (
-    // <div>
     <Routes>
       {/* Public Routes */}
       <Route element={<PublicRoute />}>
@@ -79,7 +77,6 @@ function App() {
         }
       />
     </Routes>
-    // </div>
   );
 }
 

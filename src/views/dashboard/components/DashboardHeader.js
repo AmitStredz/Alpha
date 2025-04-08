@@ -1,9 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import { FaDiscord, FaUserAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/AuthProvider";
-import { TbMoonFilled } from "react-icons/tb";
-import { FiMail, FiPhone, FiUser, FiCreditCard } from "react-icons/fi";
+import { FiMail, FiPhone, FiCreditCard } from "react-icons/fi";
 import { SiBinance } from "react-icons/si";
 
 const DashboardHeader = ({ sideBarIsOpen }) => {
