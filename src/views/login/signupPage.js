@@ -139,10 +139,37 @@ export default function SignupPage() {
           to: [{ email: inputs.email }],
           subject: "Email Verification OTP",
           htmlContent: `<html><body>
-            <h1>Your OTP for Email Verification</h1>
-            <p>Your OTP is: <strong>${generatedOTP}</strong></p>
-            <p>This OTP is valid for 5 minutes.</p>
-            </body></html>`,
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #333;">
+              <!-- Logo at the top -->
+              <div style="text-align: center; margin-bottom: 25px;">
+                <img src="https://t4.ftcdn.net/jpg/04/51/26/93/360_F_451269306_U5VVjfXzU2OZLyaLOKmkI73SCwBcjgvF.jpg" alt="Alpha Robotics Logo" style="max-width: 150px; height: auto;">
+              </div>
+              
+              <h2 style="color: #1BAA4C;">Dear ${inputs.username || 'User'},</h2>
+              
+              <p>Greetings from Alpha Robotics LLP!</p>
+              
+              <p>Your One-Time Password (OTP) for verification is:</p>
+              
+              <div style="background-color: #f7f7f7; padding: 15px; border-left: 4px solid #1BAA4C; margin: 20px 0;">
+                <p style="font-size: 16px; margin: 5px 0;">🎯 OTP: <strong>${generatedOTP}</strong></p>
+                <p style="font-size: 14px; margin: 5px 0;">⏳ This code is valid for the next 5 minutes.</p>
+              </div>
+              
+              <p>Please use this OTP to complete your verification process. If you did not request this, please ignore this message or contact our support team immediately.</p>
+              
+              <p>Thank you for choosing Alpha Robotics LLP — helping you trade smarter with cutting-edge technology.</p>
+              
+              <p style="margin-top: 25px;">Warm regards,<br>
+              <strong>Alpha Robotics LLP</strong><br>
+              📩 <a href="https://wa.me/message/FO4OATZRWJ2RO1" style="color: #1BAA4C;">Contact Support</a></p>
+              
+              <!-- Footer with logo -->
+              <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; text-align: center; font-size: 12px; color: #666;">
+                <p>© 2024 Alpha Robotics LLP. All rights reserved.</p>
+              </div>
+            </div>
+          </body></html>`,
         },
       };
 

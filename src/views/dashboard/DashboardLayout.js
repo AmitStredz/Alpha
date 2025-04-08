@@ -91,7 +91,11 @@ const DashboardLayout = () => {
   }, [location]);
 
   const handleSideOptionsClick = (option) => {
-    navigate(`${option.route}`);
+    if (option.route === "support") {
+      window.open("https://wa.me/message/FO4OATZRWJ2RO1", "_blank");
+    } else {
+      navigate(`${option.route}`);
+    }
     if (window.innerWidth < 1024) {
       setSideBarIsOpen(false);
     }
@@ -142,14 +146,16 @@ const DashboardLayout = () => {
                     </span>
                   </li>
                 ))}
-                
+
                 {/* Logout option (only visible on mobile) */}
                 {isMobile && (
                   <li
                     className="flex gap-2 py-2 mx-3 cursor-pointer text-red-500 mt-auto border-t border-gray-200 pt-4"
                     onClick={handleLogout}
                   >
-                    <span className="inline-block"><MdLogout /></span>
+                    <span className="inline-block">
+                      <MdLogout />
+                    </span>
                     <span>Logout</span>
                   </li>
                 )}
