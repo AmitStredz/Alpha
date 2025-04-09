@@ -31,17 +31,9 @@ const StatsSideBar = ({
                   currentProfit > 0 ? "text-green-500" : "text-red-500"
                 }`}
               >
-                {parseFloat(currentProfit).toFixed(3)} USDT{" "}
-                {`(${
-                  currentProfit !== 0 || usdtBal !== 0
-                    ? parseFloat(
-                        (
-                          (Math.abs(usdtBal - currentProfit) / (parseFloat(usdtBal + currentProfit) / 2)) *
-                          100
-                        ).toFixed(2)
-                      ) || 0
-                    : 0
-                }%)`}
+                {parseFloat(currentProfit).toFixed(3)} USDT (
+                {((currentProfit / usdtBal) * 100).toFixed(4)}
+                {"%"})
               </span>
               {/* <span className="mb-1">reset |</span> */}
             </div>
