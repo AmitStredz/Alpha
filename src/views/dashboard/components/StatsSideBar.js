@@ -32,9 +32,16 @@ const StatsSideBar = ({
                 }`}
               >
                 {parseFloat(currentProfit).toFixed(3)} USDT{" "}
-                {`(${currentProfit !== 0 
-                    ? parseFloat(((usdtBal - currentProfit) / currentProfit * 100).toFixed(2)) 
-                    : 0}%)`}
+                {`(${
+                  currentProfit !== 0 || usdtBal !== 0
+                    ? parseFloat(
+                        (
+                          (Math.abs(usdtBal - currentProfit) / (parseFloat(usdtBal + currentProfit) / 2)) *
+                          100
+                        ).toFixed(2)
+                      ) || 0
+                    : 0
+                }%)`}
               </span>
               {/* <span className="mb-1">reset |</span> */}
             </div>
@@ -68,7 +75,9 @@ const StatsSideBar = ({
 
               <span className="text-alphaGray">
                 Start balance:
-                <span className="font-bold"> 1650</span>
+                <span className="font-bold">
+                  {Number(usdtBal || 0)?.toFixed(3)}
+                </span>
               </span>
             </div>
           </div>
