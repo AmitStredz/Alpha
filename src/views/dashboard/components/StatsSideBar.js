@@ -17,7 +17,7 @@ const StatsSideBar = ({
         <div className="flex flex-col">
           <div className="flex flex-row justify-start gap-4 items-center">
             <div className="">
-                <TfiStatsUp className="text-5xl text-green-500 font-bold" />
+              <TfiStatsUp className="text-5xl text-green-500 font-bold" />
             </div>
             <div className=" flex flex-col items-start">
               <span className="font-extralight uppercase text-[14px]">
@@ -31,7 +31,10 @@ const StatsSideBar = ({
                   currentProfit > 0 ? "text-green-500" : "text-red-500"
                 }`}
               >
-                {parseFloat(currentProfit).toFixed(3)} USDT{`(0%)`}
+                {parseFloat(currentProfit).toFixed(3)} USDT{" "}
+                {`(${currentProfit !== 0 
+                    ? parseFloat(((usdtBal - currentProfit) / currentProfit * 100).toFixed(2)) 
+                    : 0}%)`}
               </span>
               {/* <span className="mb-1">reset |</span> */}
             </div>
@@ -45,7 +48,7 @@ const StatsSideBar = ({
         <div className="flex flex-col mb-2">
           <div className=" flex flex-row justify-start gap-4 items-center">
             <div className="">
-                <IoMdWallet className="text-5xl   font-bold" />
+              <IoMdWallet className="text-5xl   font-bold" />
             </div>
             <div className=" flex flex-col items-start">
               <span className="text-alphaGray uppercase text-[12px]">
@@ -54,11 +57,11 @@ const StatsSideBar = ({
                 <span className="text-alphaBlack font-normal">
                   <BsFillQuestionCircleFill />
                 </span>
-              </span> 
+              </span>
               <span className="text-2xl text-green-500 font-bold">
-                {/* {Number(usdtBal || 0)?.toFixed(4)} {`(0%)`} */}
+                {Number(usdtBal || 0)?.toFixed(3)}
                 {/* {usdtBal} */}
-                1650
+                {/* 1650 */}
                 {/* <span className="text-red-500">{" (-0.05%)"} </span> */}
                 {/* 1650 - 1645/100 = -0.05% */}
               </span>
