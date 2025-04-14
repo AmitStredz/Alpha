@@ -10,6 +10,8 @@ import { BASE_URL } from "../../api/api";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { RotatingLines } from "react-loader-spinner";
 import ConfirmModal from "../../components/modals/confirmModal";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/bootstrap.css";
 
 import "./login.css";
 import axios from "axios";
@@ -21,8 +23,10 @@ export default function LoginPage() {
   const [successMessage, setSuccessMessage] = useState("");
   const [successTitle, setSuccessTitle] = useState("Login Successful");
   const [errorMessage, setErrorMessage] = useState("");
+  const [loginMethod, setLoginMethod] = useState("email"); // "email" or "phone"
   const [inputs, setInputs] = useState({
-    email_or_phone: "",
+    email: "",
+    phone_number: "",
     password: "",
   });
 
@@ -104,17 +108,40 @@ export default function LoginPage() {
     // Set flag indicating login is in progress to prevent unwanted redirects
     sessionStorage.setItem("loginInProgress", "true");
 
-    console.log("inpts", inputs);
+    // Prepare the login payload based on the selected login method
+    const loginPayload = {
+      password: inputs.password,
+    };
 
-    if (!inputs.email_or_phone || !inputs.password) {
-      setErrorMessage("Please fill in all fields");
+    if (loginMethod === "email") {
+      if (!inputs.email) {
+        setErrorMessage("Please enter your email");
+        setIsLoading(false);
+        sessionStorage.removeItem("loginInProgress");
+        return;
+      }
+      loginPayload.email_or_phone = inputs.email;
+    } else {
+      if (!inputs.phone_number) {
+        setErrorMessage("Please enter your phone number");
+        setIsLoading(false);
+        sessionStorage.removeItem("loginInProgress");
+        return;
+      }
+      loginPayload.email_or_phone = inputs.phone_number;
+    }
+
+    if (!loginPayload.password) {
+      setErrorMessage("Please enter your password");
       setIsLoading(false);
       sessionStorage.removeItem("loginInProgress");
       return;
     }
 
+    console.log("login payload", loginPayload);
+
     try {
-      const response = await axios.post(`${BASE_URL}/api/users/login/`, inputs);
+      const response = await axios.post(`${BASE_URL}/api/users/login/`, loginPayload);
       if (response?.status === 200) {
         const data = response?.data;
         localStorage.setItem("token", data?.token);
@@ -218,21 +245,83 @@ export default function LoginPage() {
               Login your account to get started..!
             </p>
 
+            {/* Login Method Toggle */}
+            <div className="flex rounded-xl border mb-6 overflow-hidden">
+              <button
+                type="button"
+                className={`flex-1 py-2 ${
+                  loginMethod === "email"
+                    ? "bg-green-500 text-white"
+                    : "bg-transparent"
+                }`}
+                onClick={() => setLoginMethod("email")}
+              >
+                Login with Email
+              </button>
+              <button
+                type="button"
+                className={`flex-1 py-2 ${
+                  loginMethod === "phone"
+                    ? "bg-green-500 text-white"
+                    : "bg-transparent"
+                }`}
+                onClick={() => setLoginMethod("phone")}
+              >
+                Login with Phone
+              </button>
+            </div>
+
             <form className="space-y-4" onSubmit={handleSubmit}>
-              {/* Email/Phone Input */}
+              {/* Dynamic Input Field - changes based on selected method */}
               <div>
-                <label className="block mb-1 text-sm" htmlFor="email">
-                  Email or Phone
-                </label>
-                <input
-                  name="email_or_phone"
-                  type="text"
-                  value={inputs.email_or_phone}
-                  onChange={handleInput}
-                  className="w-full px-4 py-3 rounded-xl border bg-transparent outline-none"
-                  placeholder="Enter email or phone"
-                  required
-                />
+                {loginMethod === "email" ? (
+                  <>
+                    <label className="block mb-1 text-sm" htmlFor="email">
+                      Email
+                    </label>
+                    <input
+                      name="email"
+                      type="email"
+                      value={inputs.email}
+                      onChange={handleInput}
+                      className="w-full px-4 py-3 rounded-xl border bg-transparent outline-none"
+                      placeholder="Enter your email"
+                      required
+                    />
+                  </>
+                ) : (
+                  <>
+                    <label className="block mb-1 text-sm" htmlFor="phone">
+                      Phone Number
+                    </label>
+                    <div className="bg-transparent outline-none border rounded-xl p-3 px-4">
+                      <PhoneInput
+                        country={"in"}
+                        enableSearch={true}
+                        enableAreaCodes={true}
+                        inputStyle={{
+                          background: "transparent",
+                          outline: "none",
+                          border: "none",
+                          padding: "5px 50px",
+                          color: "white",
+                          boxShadow: "none",
+                        }}
+                        containerStyle={{
+                          border: "none",
+                          outline: "none",
+                          color: "black",
+                          background: "transparent",
+                          marginLeft: "-12px",
+                        }}
+                        value={inputs.phone_number}
+                        onChange={(phone) =>
+                          setInputs((prev) => ({ ...prev, phone_number: phone }))
+                        }
+                      />
+                    </div>
+                  </>
+                )}
               </div>
 
               {/* Password Input */}
