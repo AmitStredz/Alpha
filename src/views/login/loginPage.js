@@ -249,10 +249,10 @@ export default function LoginPage() {
             <div className="flex rounded-xl border mb-6 overflow-hidden">
               <button
                 type="button"
-                className={`flex-1 py-2 ${
+                className={`flex-1 py-2 transition-all duration-300 ease-in-out ${
                   loginMethod === "email"
                     ? "bg-green-500 text-white"
-                    : "bg-transparent"
+                    : "bg-transparent hover:bg-gray-700"
                 }`}
                 onClick={() => setLoginMethod("email")}
               >
@@ -260,10 +260,10 @@ export default function LoginPage() {
               </button>
               <button
                 type="button"
-                className={`flex-1 py-2 ${
+                className={`flex-1 py-2 transition-all duration-300 ease-in-out ${
                   loginMethod === "phone"
                     ? "bg-green-500 text-white"
-                    : "bg-transparent"
+                    : "bg-transparent hover:bg-gray-700"
                 }`}
                 onClick={() => setLoginMethod("phone")}
               >
@@ -273,9 +273,9 @@ export default function LoginPage() {
 
             <form className="space-y-4" onSubmit={handleSubmit}>
               {/* Dynamic Input Field - changes based on selected method */}
-              <div>
+              <div className="transition-all duration-300 ease-in-out">
                 {loginMethod === "email" ? (
-                  <>
+                  <div key="email-input" className="animate-fadeIn">
                     <label className="block mb-1 text-sm" htmlFor="email">
                       Email
                     </label>
@@ -284,17 +284,17 @@ export default function LoginPage() {
                       type="email"
                       value={inputs.email}
                       onChange={handleInput}
-                      className="w-full px-4 py-3 rounded-xl border bg-transparent outline-none"
+                      className="w-full px-4 py-3 rounded-xl border bg-transparent outline-none transition-all duration-300"
                       placeholder="Enter your email"
                       required
                     />
-                  </>
+                  </div>
                 ) : (
-                  <>
+                  <div key="phone-input" className="animate-fadeIn">
                     <label className="block mb-1 text-sm" htmlFor="phone">
                       Phone Number
                     </label>
-                    <div className="bg-transparent outline-none border rounded-xl p-3 px-4">
+                    <div className="bg-transparent outline-none border rounded-xl p-3 px-4 transition-all duration-300">
                       <PhoneInput
                         country={"in"}
                         enableSearch={true}
@@ -306,6 +306,7 @@ export default function LoginPage() {
                           padding: "5px 50px",
                           color: "white",
                           boxShadow: "none",
+                          transition: "all 0.3s ease-in-out",
                         }}
                         containerStyle={{
                           border: "none",
@@ -313,6 +314,7 @@ export default function LoginPage() {
                           color: "black",
                           background: "transparent",
                           marginLeft: "-12px",
+                          transition: "all 0.3s ease-in-out",
                         }}
                         value={inputs.phone_number}
                         onChange={(phone) =>
@@ -320,7 +322,7 @@ export default function LoginPage() {
                         }
                       />
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
 
