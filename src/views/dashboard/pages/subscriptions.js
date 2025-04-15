@@ -5,6 +5,18 @@ import { CiExport } from "react-icons/ci";
 
 export default function Subscriptions() {
   const [isPaymentModal, setIsPaymentModal] = useState(false);
+  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("userData")));
+  const [history, setHistory] = useState([
+    {
+      planName: "Alpha Robotics Trading Bot",
+      tenure: "One Year Plan",
+      purchaseDate: new Date(userData?.subscription_start).toLocaleDateString(),
+      purchaseTime: new Date(userData?.subscription_start).toLocaleTimeString(),
+      endDate: new Date(userData.subscription_end).toLocaleDateString(),
+      endTime: new Date(userData.subscription_end).toLocaleTimeString(),
+    },
+    
+  ]);
 
   const cardList = [
     {
@@ -51,7 +63,7 @@ export default function Subscriptions() {
   ];
 
   return (
-    <div className="flex flex-col gap-5 p-5 sm:p-10 w-full min-h-screen">
+    <div className="flex flex-col gap-5 p-3 sm:p-10 w-full min-h-screen">
       <div className="flex ">
         <span className="text-[38px] text-white">Billing & Subscriptions</span>
       </div>
@@ -131,45 +143,60 @@ export default function Subscriptions() {
         ))}
       </div>
 
-      {/* Table */}
-      {/* <div className="flex flex-col  bg-white rounded-2xl w-full">
+      <div className="flex flex-col bg-white rounded-2xl w-full shadow-sm">
+       
         <div className="header flex justify-between items-center w-full bg-slate-200 p-5 rounded-t-2xl">
-          <span>Billing History</span>
-          <div className="flex gap-2 items-center border-black border p-2 rounded-lg">
-            <span>Export</span>
-            <CiExport />
-          </div>
+          <span>Subscription History</span>
+          
         </div>
 
-        <div className="w-full overflow-auto p-5">
-          <table className="w-full">
-            <thead className=" flex justify-between w-full">
-              <tr className="flex justify-between w-full bg-white bg-opacity-10 text-[12px] sm:text-[16px] ">
-                <th className="">Plan name</th>
-                <th className="">Amounts</th>
-                <th className="">Purchase dtae</th>
-                <th className="">End date</th>
-                <th className="">Status</th>
-                <th className="">Action</th>
-              </tr>
-            </thead>
-            {swapHistory.length > 0 ? (
-              swapHistory?.map((item, index) => (
-                <tbody className="text-[12px] sm:text-[16px] font-200 z-[1000000]">
-                  <tr key={index} className="border-b border-gray-700">
-                    <td className="">{item?.date}</td>
-                    <td className="">{item?.time}</td>
-                    <td className="py-2 px-4">{item?.adrx_swapped}</td>
-                    <td className="py-2 px-4">{item?.usdt_received}</td>
+        <div className="w-full overflow-x-auto">
+          <div className="min-w-full inline-block align-middle">
+            <div className="overflow-hidden">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Plan Name</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Tenure</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Purchase Date</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Purchase Time</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">End Date</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">End Time</th>
                   </tr>
-                </tbody>
-              ))
-            ) : (
-              <div>No swapping history found.</div>
-            )}
-          </table>
+                </thead>
+                {history.length > 0 ? (
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {history?.map((item, index) => (
+                      <tr key={index} className="hover:bg-gray-50 transition-colors duration-150 text-left">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item?.planName}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item?.tenure}</td>
+                       
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item?.purchaseDate}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item?.purchaseTime}</td>
+                       
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {item?.endDate}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {item?.endTime}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                ) : (
+                  <tbody>
+                    <tr>
+                      <td colSpan="8" className="px-6 py-4 text-center text-sm text-gray-500">
+                        No subscription history found.
+                      </td>
+                    </tr>
+                  </tbody>
+                )}
+              </table>
+            </div>
+          </div>
         </div>
-      </div> */}
+      </div>
       {isPaymentModal && (
         <PaymentModal onclose={() => setIsPaymentModal(false)} />
       )}
