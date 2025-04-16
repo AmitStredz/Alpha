@@ -31,7 +31,7 @@ export default function LoginPage() {
     console.log("tokens...", token);
     if (token) {
       setTokenFromURL(token);
-      const storedToken = localStorage.getItem("reset_token");
+      const storedToken = localStorage.getItem("rt");
       if (storedToken && storedToken === token) {
         setValidToken(true);
       } else {
@@ -58,7 +58,7 @@ export default function LoginPage() {
       if (response?.status === 200) {
         const resetToken = response.data?.reset_token;
         if (resetToken) {
-          localStorage.setItem("reset_token", resetToken);
+          localStorage.setItem("rt", resetToken);
         }
         setMessage("Password reset link sent successfully!");
       }
@@ -99,7 +99,7 @@ export default function LoginPage() {
         setMessage(
           "Password has been reset successfully.Redirecting to login..."
         );
-        localStorage.removeItem("reset_token");
+        localStorage.removeItem("rt");
         setTimeout(() => {
           navigate("/login");
         }, 2000);
