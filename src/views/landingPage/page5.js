@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Page5() {
+  const navigate = useNavigate();
   return (
     <div className="flex justify-center items-center w-screen py-10 sm:h-screen text-center">
       <div className="flex flex-col gap-5 lg:px-[28rem] p-3">
@@ -17,7 +19,10 @@ export default function Page5() {
           streamline your investment experience.{" "}
         </p>
         <div>
-          <button className=" p-2 px-4 sm:p-4 sm:px-8 bg-green-500  text-[16px] sm:text-[18px] rounded-[2rem]">
+          <button
+            className=" p-2 px-4 sm:p-4 sm:px-8 bg-green-500  text-[16px] sm:text-[18px] rounded-[2rem]"
+            onClick={() => navigate("/signup")}
+          >
             Get Started
           </button>
         </div>

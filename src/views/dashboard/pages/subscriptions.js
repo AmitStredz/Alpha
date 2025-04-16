@@ -22,9 +22,9 @@ export default function Subscriptions() {
     {
       title: "Alpha Robotics Trading Bot",
       plan: "One Year Plan",
-      primaryPrice: "₹15250.00",
+      primaryPrice: "₹15,250",
       secondaryPrice: "+ 18% GST",
-      secondaryPrice2: "₹2745.00",
+      secondaryPrice2: "₹2,745",
       totalInPaise: 1799500,
       descriptionList: [
         "Access to Alpha Trading Bot for 12 months",
@@ -64,8 +64,8 @@ export default function Subscriptions() {
 
   return (
     <div className="flex flex-col gap-5 p-3 sm:p-10 w-full min-h-screen">
-      <div className="flex ">
-        <span className="text-[38px] text-white">Billing & Subscriptions</span>
+      <div className="flex max-sm:justify-center w-full">
+        <span className="text-[28px] sm:text-[38px] text-white">Billing & Subscriptions</span>
       </div>
       {/* <div className="flex justify-between gap-5">
       <div className="flex flex-col p-5 bg-white rounded-2xl w-full">
@@ -102,11 +102,11 @@ export default function Subscriptions() {
               <h2 className="text-lg font-400 text-gray-800 text-center">
                 {items.plan}
               </h2>
-              <div className="flex items-end">
+              <div className="flex items-end justify-center gap-3 w-full">
                 <span className="text-3xl font-bold text-green-500">
                   {items.primaryPrice}/
                 </span>
-                <div className="text-[14px] text-gray-500 text-center w-full flex flex-col flex-nowrap">
+                <div className="text-[15px] font-bold text-gray-500 text-center flex flex-col flex-nowrap">
                   <span>{items.secondaryPrice}</span>
                   <span className="text-green-500">
                     {items.secondaryPrice2}

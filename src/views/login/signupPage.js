@@ -646,7 +646,7 @@ export default function SignupPage() {
               </div>
               <label htmlFor="terms" className="ml-3 text-sm text-gray-300 cursor-pointer">
                 I agree to the{" "}
-                <Link to="/terms-and-conditions" className="text-green-500 hover:underline">
+                <Link to="/terms" className="text-green-500 hover:underline">
                   Terms and Conditions
                 </Link>
               </label>

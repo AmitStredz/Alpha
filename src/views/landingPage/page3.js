@@ -16,7 +16,7 @@ export default function Page3() {
         "Revolutionize your business with blockchain powered decentralized ecosystems, leveraging smart contracts for unmatched transparency, efficiency, and trust.",
       tags: [
         "Crypto Games",
-        "Smart contract developement",
+        "Smart contract development",
         "ICO (solana and Ethereum)",
         "Token development",
         "DAPP",
@@ -37,7 +37,7 @@ export default function Page3() {
     },
     {
       id: "03",
-      title: "ERP Software Developemt",
+      title: "ERP Software Development",
       description:
         "Empower your business with flexible, high-performance ERP solutions that centralize operations, enhance productivity, and enable data-driven decisions",
       tags: [

@@ -88,7 +88,7 @@ export default function Portfolio() {
     <div className="flex flex-col p-5 sm:p-10 w-full min-h-screen font-poppins">
       {/* Header Section */}
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-xl sm:text-3xl font-bold text-white">Portfolio Overview</h1>
+        <h1 className="text-[28px] sm:text-[38px] font-bold text-white">Portfolio Overview</h1>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <div className={`w-3 h-3 rounded-full ${tradeData?.bot_status === "ACTIVE" ? "bg-green-500" : "bg-red-500"}`} />

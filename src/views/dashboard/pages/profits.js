@@ -39,12 +39,15 @@ export default function Profits() {
           response?.data?.trade_cycles[0]?.live_profit
         );
         const profit = response?.data?.cumulative_profit;
+        console.log("profitt..: ", profit);
+
         if (profit < 10) {
           setLiveProfit(profit * 100);
         } else {
           setLiveProfit(profit);
         }
-        setRealProfit(profit);
+        setRealProfit(parseFloat(profit)?.toFixed(2));
+        console.log("RealPRofit: ", realProfit);
 
         // Process data for bar chart
         processBarChartData(response.data.trade_cycles);
@@ -140,7 +143,7 @@ export default function Profits() {
     <div className="flex flex-col p-4 sm:p-6 lg:p-10 w-full">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-3xl sm:text-4xl text-white font-semibold">
+        <h1 className="text-[28px] sm:text-[38px] sm:text-4xl text-white font-semibold">
           Profits
         </h1>
       </div>
@@ -181,12 +184,16 @@ export default function Profits() {
                 </div>
 
                 <div className="mt-4 text-center">
-                  <Tooltip title={`Exact Value: ${realProfit}`}>
+                  {/* <Tooltip title={`Exact Value: ${realProfit}`}>
                     <div className="text-xl font-semibold mb-1">
                       {formatCurrency(realProfit)}
                     </div>
-                  </Tooltip>
-                  <p className="text-sm text-gray-500">
+                  </Tooltip> */}
+                  <p
+                    className={`text-sm text-gray-500 ${
+                      realProfit > 0 ? "text-green-500" : "text-red-500"
+                    }`}
+                  >
                     {realProfit > 0 ? "Profitable" : "Loss"} -{" "}
                     {Math.abs(
                       (parseFloat(realProfit || 0) /
@@ -239,7 +246,8 @@ export default function Profits() {
 
           <div className="p-5">
             <div className="flex flex-col items-center justify-center">
-              {initialCapital !== null && tradeData?.trade_cycles?.[0]?.used_capital !== undefined ? (
+              {initialCapital !== null &&
+              tradeData?.trade_cycles?.[0]?.used_capital !== undefined ? (
                 <>
                   <div className="relative">
                     <Gauge
@@ -271,10 +279,17 @@ export default function Profits() {
                       )}
                     </div> */}
                     <p className="text-sm text-gray-500">
-                      {getCapitalUsedPercentage().toFixed(1)}% of total capital used {`($${parseFloat(tradeData?.trade_cycles[0]?.used_capital)?.toFixed(2)})`}
+                      {getCapitalUsedPercentage().toFixed(1)}% of total capital
+                      used{" "}
+                      {`($${parseFloat(
+                        tradeData?.trade_cycles[0]?.used_capital
+                      )?.toFixed(2)})`}
                     </p>
                     <p className="text-sm text-gray-500">
-                      {`$${parseFloat(realCapital-tradeData?.trade_cycles[0]?.used_capital)?.toFixed(2)}`} remaining
+                      {`$${parseFloat(
+                        realCapital - tradeData?.trade_cycles[0]?.used_capital
+                      )?.toFixed(2)}`}{" "}
+                      remaining
                     </p>
                   </div>
                 </>
@@ -339,68 +354,100 @@ export default function Profits() {
                   {/* Y-axis labels */}
                   <div className="absolute left-0 top-0 bottom-0 w-[60px] flex flex-col justify-between text-xs text-gray-500 pr-2">
                     <div className="text-right">
-                      {Math.max(...barChartData.map(val => Math.abs(val)), 0).toFixed(2)}
+                      {Math.max(
+                        ...barChartData.map((val) => Math.abs(val)),
+                        0
+                      ).toFixed(2)}
                     </div>
                     <div className="text-right">0.00</div>
                     <div className="text-right">
-                      {(-Math.max(...barChartData.map(val => Math.abs(val)), 0)).toFixed(2)}
+                      {(-Math.max(
+                        ...barChartData.map((val) => Math.abs(val)),
+                        0
+                      )).toFixed(2)}
                     </div>
                   </div>
-                  
+
                   {/* Y-axis line */}
                   <div className="absolute left-[60px] top-0 bottom-0 w-[1px] bg-gray-200"></div>
-                  
+
                   {/* X-axis line */}
                   <div className="absolute left-[60px] right-0 top-1/2 h-[1px] bg-gray-200"></div>
-                  
+
                   {/* Bars Container */}
                   <div className="absolute left-[80px] right-[20px] top-0 bottom-0 flex items-center">
                     <div className="w-full flex justify-between items-center">
                       {barChartData.map((value, index) => {
                         const isPositive = value >= 0;
-                        const barHeight = `${Math.min(Math.abs(value) / Math.max(...barChartData.map(val => Math.abs(val)), 0.01) * 100, 100)}%`;
-                        
+                        const barHeight = `${Math.min(
+                          (Math.abs(value) /
+                            Math.max(
+                              ...barChartData.map((val) => Math.abs(val)),
+                              0.01
+                            )) *
+                            100,
+                          100
+                        )}%`;
+
                         return (
-                          <div key={index} className="flex flex-col items-center" style={{ width: `${100 / barChartData.length}%` }}>
+                          <div
+                            key={index}
+                            className="flex flex-col items-center"
+                            style={{ width: `${100 / barChartData.length}%` }}
+                          >
                             {/* Bar */}
-                            <div className="relative w-[70%] flex flex-col items-center justify-center group" 
-                              style={{ height: '240px' }}>
-                              <div 
-                                className={`w-full rounded-sm ${isPositive ? 'bg-emerald-500' : 'bg-red-500'}`} 
-                                style={{ 
-                                  height: barHeight, 
-                                  position: 'absolute',
-                                  bottom: isPositive ? '50%' : 'auto',
-                                  top: isPositive ? 'auto' : '50%',
-                                  transition: 'height 0.3s ease-in-out'
+                            <div
+                              className="relative w-[70%] flex flex-col items-center justify-center group"
+                              style={{ height: "240px" }}
+                            >
+                              <div
+                                className={`w-full rounded-sm ${
+                                  isPositive ? "bg-emerald-500" : "bg-red-500"
+                                }`}
+                                style={{
+                                  height: barHeight,
+                                  position: "absolute",
+                                  bottom: isPositive ? "50%" : "auto",
+                                  top: isPositive ? "auto" : "50%",
+                                  transition: "height 0.3s ease-in-out",
                                 }}
                               />
-                              
+
                               {/* Tooltip - moved outside the bar but inside the container div */}
-                              <div 
+                              <div
                                 className="invisible group-hover:visible absolute w-[120px] bg-white shadow-lg rounded p-2 text-sm z-10 left-1/2 transform -translate-x-1/2 transition-all"
-                                style={{ 
-                                  bottom: isPositive ? 'calc(50% + 10px)' : 'auto', 
-                                  top: isPositive ? 'auto' : 'calc(50% + 10px)'
+                                style={{
+                                  bottom: isPositive
+                                    ? "calc(50% + 10px)"
+                                    : "auto",
+                                  top: isPositive ? "auto" : "calc(50% + 10px)",
                                 }}
                               >
-                                <div className="font-medium">{barChartLabels[index]}</div>
-                                <div className={isPositive ? 'text-emerald-600' : 'text-red-600'}>
+                                <div className="font-medium">
+                                  {barChartLabels[index]}
+                                </div>
+                                <div
+                                  className={
+                                    isPositive
+                                      ? "text-emerald-600"
+                                      : "text-red-600"
+                                  }
+                                >
                                   {formatCurrency(value)}
                                 </div>
                               </div>
                             </div>
-                            
+
                             {/* X-axis label */}
                             <div className="text-xs text-gray-500 mt-2 truncate w-full text-center">
-                              {barChartLabels[index].replace('Cycle ', '')}
+                              {barChartLabels[index].replace("Cycle ", "")}
                             </div>
                           </div>
                         );
                       })}
                     </div>
                   </div>
-                  
+
                   {/* Legend */}
                   <div className="absolute top-[-30px] right-[20px] flex items-center">
                     <div className="flex items-center mr-4">

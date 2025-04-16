@@ -17,9 +17,9 @@ export default function Pricing() {
     {
       title: "Alpha Robotics Trading Bot",
       plan: "One Year Plan",
-      primaryPrice: "₹15250",
+      primaryPrice: "₹15,250",
       secondaryPrice: "+ 18% GST",
-      secondaryPrice2: "₹2745.00",
+      secondaryPrice2: "₹2,745",
       totalInPaise: 1799500,
       descriptionList: [
         "Access to Alpha Trading Bot for 12 months",
@@ -180,11 +180,11 @@ export default function Pricing() {
                 <h2 className="text-lg font-400 text-gray-800 text-center">
                   {items.plan}
                 </h2>
-                <div className="flex items-end">
+                <div className="flex items-end justify-center gap-3">
                   <span className="text-3xl font-bold text-green-500">
                     {items.primaryPrice}/
                   </span>
-                  <div className="text-[14px] text-gray-500 text-center w-full flex flex-col flex-nowrap">
+                  <div className="text-[15px] text-gray-500 font-semibold text-center w-full flex flex-col flex-nowrap">
                     <span>{items.secondaryPrice}</span>
                     <span className="text-green-500">
                       {items.secondaryPrice2}

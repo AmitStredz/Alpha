@@ -37,7 +37,7 @@ export default function TradeHistory() {
   return (
     <div className="flex flex-col p-5 sm:p-10 w-full min-h-screen">
       <div className="flex ">
-        <span className="text-[44px] text-white">Trade History</span>
+        <span className="text-[28px] sm:text-[38px] text-white">Trade History</span>
       </div>
 
       {/* Table */}
