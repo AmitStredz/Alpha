@@ -43,7 +43,7 @@ const DashboardHeader = ({ sideBarIsOpen }) => {
 
   return (
     <div>
-      <div className="border-slate-400 bg-white border-b-[1px] font-aclonica">
+      <div className="border-slate-400 bg-white border-b-[1px] font-poppins">
         <header className="flex justify-between items-center p-3 sm:p-5 sm:px-10 ">
           <div className="text-xl md:text-2xl inline text-alphaGreen font-semibold">
             <span
@@ -53,7 +53,7 @@ const DashboardHeader = ({ sideBarIsOpen }) => {
               {"☰"}
             </span>
             <h1 className="inline text-green-500 text-[16px] sm:text-[20px]">
-              alpha robotics
+              Alpha robotics
             </h1>
           </div>
           <div className="text-black">

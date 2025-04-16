@@ -85,7 +85,7 @@ export default function ConnectBinance() {
   const ip = ["52.51.148.88", "52.208.145.228"];
 
   return (
-    <div className="flex flex-col items-center font-aclonica text-white justify-center h-full bg-gradient-to-br from-[#0D3225] via-[#172631] to-[#545767]  overflow-hidden">
+    <div className="flex flex-col items-center font-poppins text-white justify-center h-full bg-gradient-to-br from-[#0D3225] via-[#172631] to-[#545767]  overflow-hidden">
       <HomeHeader />
 
       <div className="flex flex-col gap-5 p-3 sm:p-10 max-sm:items-center w-full">

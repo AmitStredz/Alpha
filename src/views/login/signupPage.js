@@ -70,6 +70,7 @@ export default function SignupPage() {
   
   // Form data
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [acceptTerms, setAcceptTerms] = useState(false);
   const [inputs, setInputs] = useState({
     username: "",
     email: "",
@@ -142,7 +143,7 @@ export default function SignupPage() {
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #333;">
               <!-- Logo at the top -->
               <div style="text-align: center; margin-bottom: 25px;">
-                <img src="https://t4.ftcdn.net/jpg/04/51/26/93/360_F_451269306_U5VVjfXzU2OZLyaLOKmkI73SCwBcjgvF.jpg" alt="Alpha Robotics Logo" style="max-width: 150px; height: auto;">
+                <img src="https://res.cloudinary.com/dx4mb0d68/image/upload/v1744797172/logo2_aseqm9.png" alt="Alpha Robotics Logo" style="max-width: 150px; height: auto;">
               </div>
               
               <h2 style="color: #1BAA4C;">Dear ${inputs.username || 'User'},</h2>
@@ -616,6 +617,31 @@ export default function SignupPage() {
                 </div>
               </div>
             </div>
+            {/* Terms and Conditions checkbox */}
+            <div className="flex items-start mt-4">
+              <div className="flex items-center bg-transparent">
+                <input
+                  id="terms"
+                  type="checkbox"
+                  onChange={(e) => setAcceptTerms(e.target.checked)}
+                  checked={acceptTerms}
+                  className="w-5 h-5 accent-green-500"
+                  style={{
+                    appearance: 'auto', 
+                    opacity: '1', 
+                    backgroundColor: 'white',
+                    border: '1px solid #888'
+                  }}
+                  required
+                />
+              </div>
+              <label htmlFor="terms" className="ml-3 text-sm text-gray-300 cursor-pointer">
+                I agree to the{" "}
+                <Link to="/terms-and-conditions" className="text-green-500 hover:underline">
+                  Terms and Conditions
+                </Link>
+              </label>
+            </div>
 
             {/* General error message */}
             {errorMessage && (
@@ -627,9 +653,9 @@ export default function SignupPage() {
             {/* Submit button */}
             <button
               type="submit"
-              disabled={!isEmailVerified || isLoading}
+              disabled={!isEmailVerified || isLoading || !acceptTerms}
               className={`flex justify-center w-full py-2 rounded-3xl transition font-bold ${
-                !isEmailVerified
+                !isEmailVerified || !acceptTerms
                   ? "bg-gray-500 cursor-not-allowed"
                   : isLoading
                   ? "bg-green-300"

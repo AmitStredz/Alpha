@@ -7,16 +7,17 @@ import { FaCircleCheck } from "react-icons/fa6";
 import HomeHeader from "../../components/navbar/homeHeader";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import ConfirmModal from "../../components/modals/confirmModal";
 export default function Pricing() {
   const [isPaymentModal, setIsPaymentModal] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [isSuccessModal, setIsSuccessModal] = useState(false);
   const navigate = useNavigate();
   const cardList = [
     {
       title: "Alpha Robotics Trading Bot",
       plan: "One Year Plan",
-      primaryPrice: "₹15250.00",
+      primaryPrice: "₹15250",
       secondaryPrice: "+ 18% GST",
       secondaryPrice2: "₹2745.00",
       totalInPaise: 1799500,
@@ -115,12 +116,11 @@ export default function Pricing() {
               { headers }
             );
             if (verifyResp.data.message) {
-              alert("Payment success! Subscription activated.");
+              // alert("Payment success! Subscription activated.");
               console.log("Before update:", userData);
               userData.plan = "1_year"; // Set to whatever plan value you need
               localStorage.setItem("userData", JSON.stringify(userData));
-              navigate("/connect-binance");
-              // window.location.reload();
+              setIsSuccessModal(true);
             }
           } catch (err) {
             console.error("Verification error:", err?.response?.data);
@@ -154,7 +154,7 @@ export default function Pricing() {
   };
 
   return (
-    <div className="flex flex-col items-center text-white font-aclonica justify-center h-full bg-gradient-to-br from-[#0D3225] via-[#172631] to-[#545767]  overflow-hidden">
+    <div className="flex flex-col items-center text-white font-poppins justify-center h-full bg-gradient-to-br from-[#0D3225] via-[#172631] to-[#545767]  overflow-hidden">
       <HomeHeader />
 
       <div className="flex flex-col gap-5 sm:gap-10 items-center p-3 sm:p-20 w-full">
@@ -236,6 +236,17 @@ export default function Pricing() {
 
       {isPaymentModal && (
         <PaymentModal onclose={() => setIsPaymentModal(false)} />
+      )}
+      {isSuccessModal && (
+        <ConfirmModal
+          isClose={true}
+          onClose={() => {
+            setIsSuccessModal(false);
+            navigate("/connect-binance");
+          }}
+          title="Payment Success"
+          message1="Payment success! Subscription activated."
+        />
       )}
     </div>
   );

@@ -223,7 +223,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex flex-col justify-center sm:justify-between  sm:h-screen min-h-screen  w-screen sm:p-10 bg-cover bg-center bg-no-repeat text-white bg-black background-imag">
+    <div className="flex flex-col justify-center sm:justify-between font-poppins  sm:h-screen min-h-screen  w-screen sm:p-10 bg-cover bg-center bg-no-repeat text-white bg-black background-imag">
       {/* Left Section */}
       <div className="flex flex-col md:flex-row h-full">
         <div className="w-full md:w-1/2 flex flex-col justify-center items-start p-8 md:p-16 max-sm:pt-20">
@@ -358,6 +358,12 @@ export default function LoginPage() {
               {errorMessage && (
                 <div className="text-red-500 text-sm">{errorMessage}</div>
               )}
+               {/* Forgot Password Link */}
+            <div className="">
+              <Link to="/forgot-password" className="text-green-500 hover:underline text-sm">
+                Forgot Password?
+              </Link>
+            </div>
 
               {/* Submit Button */}
               <button

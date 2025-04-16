@@ -69,7 +69,7 @@ export default function DepositModal({ onClose, onConfirm, usdtBal}) {
   };
   return (
     <div
-      className="w-screen h-screen fixed top-0 left-0 flex text-black font-aclonica justify-center items-center backdrop-blur-xl z-[100]"
+      className="w-screen h-screen fixed top-0 left-0 flex text-black font-poppins justify-center items-center backdrop-blur-xl z-[100]"
       data-aos="fade-in"
     >
       <div

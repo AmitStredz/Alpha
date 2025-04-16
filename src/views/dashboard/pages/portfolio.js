@@ -85,20 +85,20 @@ export default function Portfolio() {
   const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
   return (
-    <div className="flex flex-col p-5 sm:p-10 w-full min-h-screen">
+    <div className="flex flex-col p-5 sm:p-10 w-full min-h-screen font-poppins">
       {/* Header Section */}
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-white">Portfolio Overview</h1>
+        <h1 className="text-xl sm:text-3xl font-bold text-white">Portfolio Overview</h1>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <div className={`w-3 h-3 rounded-full ${tradeData?.bot_status === "ACTIVE" ? "bg-green-500" : "bg-red-500"}`} />
-            <span className="text-white">{tradeData?.bot_status || "Loading..."}</span>
+            <span className="text-text-white">{tradeData?.bot_status || "Loading..."}</span>
           </div>
         </div>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 text-start">
         <div className="bg-white rounded-xl p-4 shadow-lg">
           <div className="flex items-center justify-between">
             <div>
@@ -149,32 +149,32 @@ export default function Portfolio() {
           <div key={cycle.cycle_id} className="border rounded-xl p-4 mb-4">
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h3 className="text-lg font-semibold">Cycle #{cycle.cycle_number}</h3>
-                <p className="text-gray-500 text-sm">Started: {new Date(cycle.started_at).toLocaleString()}</p>
+                <h3 className="text-lg font-semibold">Cycle #{cycle?.cycle_number}</h3>
+                <p className="text-gray-500 text-sm">Started: {new Date(cycle?.started_at)?.toLocaleString()}</p>
               </div>
               <div className="flex items-center gap-2">
                 <IoMdTime className="text-gray-500" />
-                <span className="text-sm">{formatTime(cycle.trade_cycle_age)}</span>
+                <span className="text-sm">{formatTime(cycle?.trade_cycle_age)}</span>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
               <div className="bg-gray-50 rounded-lg p-3">
                 <p className="text-gray-500 text-sm">Average Price</p>
-                <p className="text-lg font-semibold">${cycle.average_price.toFixed(2)}</p>
+                <p className="text-lg font-semibold">${cycle?.average_price?.toFixed(2)}</p>
               </div>
               <div className="bg-gray-50 rounded-lg p-3">
                 <p className="text-gray-500 text-sm">Current Price</p>
-                <p className="text-lg font-semibold">${cycle.current_market_price.toFixed(2)}</p>
+                <p className="text-lg font-semibold">${cycle?.current_market_price?.toFixed(2)}</p>
               </div>
               <div className="bg-gray-50 rounded-lg p-3">
                 <p className="text-gray-500 text-sm">Accumulated Quantity</p>
-                <p className="text-lg font-semibold">{cycle.accumulated_quantity}</p>
+                <p className="text-lg font-semibold">{cycle?.accumulated_quantity}</p>
               </div>
               <div className="bg-gray-50 rounded-lg p-3">
                 <p className="text-gray-500 text-sm">Live Profit</p>
-                <p className={`text-lg font-semibold ${cycle.live_profit >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                  ${cycle.live_profit.toFixed(2)}
+                <p className={`text-lg font-semibold ${cycle?.live_profit >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                  ${cycle?.live_profit?.toFixed(2)}
                 </p>
               </div>
             </div>
@@ -203,9 +203,9 @@ export default function Portfolio() {
                           {order.order_type}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">{order.quantity}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">${order.fill_price.toFixed(2)}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">${order.order_capital.toFixed(2)}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{order?.quantity}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">${order?.fill_price?.toFixed(2)}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">${order?.order_capital?.toFixed(2)}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {new Date(order.timestamp).toLocaleTimeString()}
                       </td>
@@ -238,7 +238,7 @@ export default function Portfolio() {
                   label: "Average Price",
                   color: "#52b202",
                   showMark: true,
-                  valueFormatter: (value) => `$${value.toFixed(2)}`,
+                  valueFormatter: (value) => `$${value?.toFixed(2)}`,
                 }
               ]}
               height={400}
