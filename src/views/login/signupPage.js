@@ -737,7 +737,7 @@ export default function SignupPage() {
 
       {isSuccessModal && (
         <ConfirmModal
-          title="Signup Successfull"
+          title="Signup Successful"
           message1="Please login in to proceed."
           isClose={true}
           onClose={() => handleModalOnClose()}
