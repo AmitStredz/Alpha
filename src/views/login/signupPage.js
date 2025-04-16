@@ -354,6 +354,7 @@ export default function SignupPage() {
   // Handle input changes
   const handleInput = (e) => {
     const { name, value } = e.target;
+  
     
     // Update input value
     setInputs((prev) => ({
@@ -382,6 +383,14 @@ export default function SignupPage() {
       default:
         break;
     }
+
+    if (name === "email") {
+      console.log("it's email...");
+      if (/[A-Z]/.test(value)) {
+        setEmailError("Email must not contain uppercase letters");
+      }
+    }
+    
   };
 
   const handleModalOnClose = () => {
@@ -705,7 +714,8 @@ export default function SignupPage() {
       <img
         alt="logo"
         src="/logo.png"
-        className="absolute top-5 sm:top-10 left-5 sm:left-10 w-14 sm:w-20"
+        className="absolute top-5 sm:top-10 left-5 sm:left-10 w-14 sm:w-20 cursor-pointer"
+        onClick={() => navigate("/")}
       ></img>
       <div className="max-sm:hidden absolute flex justify-between bottom-10 left-10 sm:gap-[20rem]">
         <div>© 2025 alpha All Rights Reserved.</div>

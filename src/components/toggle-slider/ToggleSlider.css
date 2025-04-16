@@ -28,9 +28,9 @@
   transition: 0.4s;
 }
 
-input[type="checkbox"] {
+/* input[type="checkbox"] {
   display: none;
-}
+} */
 
 input[type="checkbox"]:checked + .slider {
   background-color: #15b58e;

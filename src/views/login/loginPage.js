@@ -401,7 +401,8 @@ export default function LoginPage() {
       <img
         alt="logo"
         src="/logo.png"
-        className="absolute top-5 sm:top-10 left-5 sm:left-10 w-14 sm:w-20"
+        className="absolute top-5 sm:top-10 left-5 sm:left-10 w-14 sm:w-20 cursor-pointer"
+        onClick={() => navigate("/")}
       ></img>
       <div className=" flex flex-col sm:flex-row items-center gap-3  justify-between p-3 sm:px-32 sm:gap-[20rem]">
         <div className="text-[12px] max-sm:order-last sm:text-[16px]">

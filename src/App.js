@@ -14,6 +14,7 @@ import DashboardLayout from "./views/dashboard/DashboardLayout";
 import ConnectBinance from "./views/homePage/connectBinance";
 import LandingPage from "./views/landingPage/landingPage";
 import Pricing from "./views/pricing/pricing";
+import ForgotPassword from "./views/login/forgotPassword";
 
 function App() {
   const auth = useAuth();
@@ -57,6 +58,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/forgot-password/:token?" element={<ForgotPassword />} />
       </Route>
 
       {/* Protected Routes */}
