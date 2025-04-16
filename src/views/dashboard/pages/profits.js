@@ -38,7 +38,7 @@ export default function Profits() {
           "liveProfit: ",
           response?.data?.trade_cycles[0]?.live_profit
         );
-        const profit = response?.data?.trade_cycles[0]?.live_profit;
+        const profit = response?.data?.cumulative_profit;
         if (profit < 10) {
           setLiveProfit(profit * 100);
         } else {
@@ -160,6 +160,7 @@ export default function Profits() {
                   <Gauge
                     valueMax={parseInt(initialCapital || 100)}
                     value={realProfit || 0}
+                    text={`${realProfit}%`}
                     width={window.innerWidth < 768 ? 250 : 300}
                     height={window.innerWidth < 768 ? 250 : 300}
                     cornerRadius="50%"
@@ -243,6 +244,7 @@ export default function Profits() {
                   <div className="relative">
                     <Gauge
                       value={getCapitalUsedPercentage()}
+                      text={`${getCapitalUsedPercentage()?.toFixed(2)}%`}
                       width={window.innerWidth < 768 ? 250 : 300}
                       height={window.innerWidth < 768 ? 250 : 300}
                       cornerRadius="50%"
@@ -263,13 +265,16 @@ export default function Profits() {
                   </div>
 
                   <div className="mt-4 text-center">
-                    <div className="text-xl font-semibold mb-1">
+                    {/* <div className="text-xl font-semibold mb-1">
                       {formatCurrency(
                         tradeData?.trade_cycles?.[0]?.used_capital || 0
                       )}
-                    </div>
+                    </div> */}
                     <p className="text-sm text-gray-500">
-                      {getCapitalUsedPercentage().toFixed(1)}% of total capital used
+                      {getCapitalUsedPercentage().toFixed(1)}% of total capital used {`($${parseFloat(tradeData?.trade_cycles[0]?.used_capital)?.toFixed(2)})`}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      {`$${parseFloat(realCapital-tradeData?.trade_cycles[0]?.used_capital)?.toFixed(2)}`} remaining
                     </p>
                   </div>
                 </>

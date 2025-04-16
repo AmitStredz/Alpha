@@ -12,8 +12,6 @@ import {
   Routes,
   useLocation,
   useNavigate,
-  useParams,
-  useSearchParams,
 } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
 import Portfolio from "./pages/portfolio";
@@ -21,8 +19,6 @@ import Profits from "./pages/profits";
 import TradeHistory from "./pages/tradeHistory";
 import Support from "./pages/support";
 import Subscriptions from "./pages/subscriptions";
-import { BASE_URL } from "../../api/api";
-import axios from "axios";
 import { useAuth } from "../auth/AuthProvider";
 
 const menuItems = [

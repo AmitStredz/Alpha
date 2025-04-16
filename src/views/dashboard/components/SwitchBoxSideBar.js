@@ -19,11 +19,12 @@ const SwitchBoxSideBar = ({ botStatus, botIsEnabled }) => {
   });
   const token = localStorage.getItem("token");
   const [showTooltip, setShowTooltip] = useState(false);
+  const [tooltipText, setTooltipText] = useState("");
 
   useEffect(() => {
     // Set initial state based on botStatus
     if (botStatus === "ACTIVE" || botStatus === "In Progress") {
-      console.log("Status inactive: ", botStatus);
+      console.log("Bot Status: ", botStatus);
 
       setSwitches({
         bot: true,
@@ -73,6 +74,14 @@ const SwitchBoxSideBar = ({ botStatus, botIsEnabled }) => {
   };
 
   const handleToggle = async (type) => {
+    if (botStatus?.toLowerCase() === "inactive") {
+      setTooltipText(
+        "Please start the bot first."
+      );
+      setShowTooltip(true);
+      setTimeout(() => setShowTooltip(false), 3000);
+      return;
+    }
     setSwitches((prevSwitches) => {
       let newSwitches = { ...prevSwitches };
 
@@ -83,6 +92,9 @@ const SwitchBoxSideBar = ({ botStatus, botIsEnabled }) => {
           (!prevSwitches.buying || !prevSwitches.selling)
         ) {
           // Show tooltip for 3 seconds
+          setTooltipText(
+            "Please enable both Buying and Selling before enabling the Bot"
+          );
           setShowTooltip(true);
           setTimeout(() => setShowTooltip(false), 3000);
           return prevSwitches; // Don't allow bot to be enabled
@@ -120,11 +132,7 @@ const SwitchBoxSideBar = ({ botStatus, botIsEnabled }) => {
   return (
     <>
       <div className="text-left w-full my-5 mx-auto bg-white rounded-lg relative">
-        {showTooltip && (
-          <div className="tooltip">
-            Please enable both Buying and Selling before enabling the Bot
-          </div>
-        )}
+        {showTooltip && <div className="tooltip">{tooltipText}</div>}
         {list.map((item, index) => {
           const type = index === 0 ? "bot" : index === 1 ? "buying" : "selling";
           return (
@@ -207,14 +215,14 @@ const SwitchBoxSideBar = ({ botStatus, botIsEnabled }) => {
             position: absolute;
             top: -10px;
             left: 0px;
-            transform: translateX(-50%);
+            // transform: translateX(-50%);
             background-color: #333;
             color: white;
             padding: 8px 12px;
             border-radius: 6px;
             font-size: 14px;
             z-index: 1000;
-            white-space: nowrap;
+            white-space: normal;
             animation: fadeInOut 3s ease-in-out;
           }
 

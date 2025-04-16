@@ -131,16 +131,17 @@ export default function Dashboard() {
 
   // const fetch
   const handleStartBotClick = async () => {
-    if (!botIsEnabled) {
-      setErrorMessage("Enable bot to Start BOT.");
-      return;
-    }
+    // if (!botIsEnabled) {
+    //   setErrorMessage("Enable bot to Start BOT.");
+    //   return;
+    // }
     setBotisLoading(true);
     const response1 = await fetchBalance();
     console.log(response1?.response?.data?.detail);
     if (response1?.is_enabled === false) {
       console.log("is_enabled is false.");
-      setErrorMessage("Bot is disabled. Enable it.");
+      setErrorMessage("Set initial capital to start the bot.");
+      setIsDepositModal(true);
       setBotisLoading(false);
       return;
     } else if (response1?.response?.data?.detail) {
@@ -255,15 +256,10 @@ export default function Dashboard() {
             </div>
 
             <button
-              disabled={
-                botisLoading ||
-                botStatus?.toLowerCase() === "active" ||
-                botStatus?.toUpperCase() === "in progress"
-              }
+              disabled={botisLoading || botStatus?.toLowerCase() !== "inactive"}
               className={`flex items-center justify-center gap-1 sm:gap-3 p-2 sm:p-5 rounded-lg ${
                 botisLoading ||
-                botStatus?.toLowerCase() === "active" ||
-                botStatus?.toUpperCase() === "in progress"
+                botStatus?.toLowerCase() !== "inactive"
                   ? "bg-green-500 cursor-not-allowed"
                   : "bg-green-600 hover:bg-green-500"
               }`}
@@ -290,9 +286,10 @@ export default function Dashboard() {
                 </div>
               ) : (
                 <span className="text-white text-[12px] sm:text-[20px] font-medium  overflow-hidden text-ellipsis">
-                  {botStatus?.toLowerCase() === "active" ||
-                  botStatus?.toUpperCase() === "in progress"
+                  {botStatus?.toLowerCase() !== "inactive"
                     ? `Bot is ${botStatus}`
+                    : botStatus?.toLowerCase() === "inactive" && botIsEnabled
+                    ? "Bot is Enabled."
                     : "Start Bot"}
                 </span>
               )}
