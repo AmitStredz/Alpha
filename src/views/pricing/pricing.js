@@ -180,8 +180,8 @@ export default function Pricing() {
                 <h2 className="text-lg font-400 text-gray-800 text-center">
                   {items.plan}
                 </h2>
-                <div className="flex items-end justify-center gap-3">
-                  <span className="text-3xl font-bold text-green-500">
+                <div className="flex items-end justify-center gap-3 font-zona">
+                  <span className="text-3xl font-bold text-green-500 ">
                     {items.primaryPrice}/
                   </span>
                   <div className="text-[15px] text-gray-500 font-semibold text-center w-full flex flex-col flex-nowrap">

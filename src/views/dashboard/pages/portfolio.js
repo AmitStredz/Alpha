@@ -52,16 +52,16 @@ export default function Portfolio() {
   
   const processTradeCyclesForChart = (tradeCycles) => {
     const sortedCycles = [...tradeCycles].sort((a, b) => 
-      new Date(a.started_at) - new Date(b.started_at)
+      new Date(a.started_at || 0) - new Date(b.started_at || 0)
     );
     
     const processedData = sortedCycles.map((cycle, index) => {
-      const date = new Date(cycle.started_at);
+      const date = cycle.started_at ? new Date(cycle.started_at) : new Date();
       return {
         x: date.getMonth(),
-        y: parseFloat(cycle.average_price),
+        y: parseFloat(cycle.average_price || 0),
         date: date,
-        cycleNumber: cycle.cycle_number
+        cycleNumber: cycle.cycle_number || index + 1
       };
     });
     
@@ -92,7 +92,7 @@ export default function Portfolio() {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <div className={`w-3 h-3 rounded-full ${tradeData?.bot_status === "ACTIVE" ? "bg-green-500" : "bg-red-500"}`} />
-            <span className="text-text-white">{tradeData?.bot_status || "Loading..."}</span>
+            <span className="text-white">{tradeData?.bot_status || "Loading..."}</span>
           </div>
         </div>
       </div>
@@ -103,7 +103,7 @@ export default function Portfolio() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-500 text-sm">Daily Profit</p>
-              <p className="text-2xl font-bold">${tradeData?.daily_profit?.toFixed(2) || "0.00"}</p>
+              <p className="text-2xl font-bold">${parseFloat(tradeData?.daily_profit || 0).toFixed(2)}</p>
             </div>
             <FaChartLine className="text-green-500 text-2xl" />
           </div>
@@ -113,7 +113,7 @@ export default function Portfolio() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-500 text-sm">Cumulative Profit</p>
-              <p className="text-2xl font-bold">${tradeData?.cumulative_profit?.toFixed(2) || "0.00"}</p>
+              <p className="text-2xl font-bold">${parseFloat(tradeData?.cumulative_profit || 0).toFixed(2)}</p>
             </div>
             <FaCoins className="text-yellow-500 text-2xl" />
           </div>
@@ -134,7 +134,7 @@ export default function Portfolio() {
             <div>
               <p className="text-gray-500 text-sm">Total Capital Used</p>
               <p className="text-2xl font-bold">
-                ${tradeData?.trade_cycles?.[0]?.used_capital?.toFixed(2) || "0.00"}
+                ${parseFloat(tradeData?.trade_cycles?.[0]?.used_capital || 0).toFixed(2)}
               </p>
             </div>
             <BsGraphUpArrow className="text-purple-500 text-2xl" />
@@ -149,32 +149,32 @@ export default function Portfolio() {
           <div key={cycle.cycle_id} className="border rounded-xl p-4 mb-4">
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h3 className="text-lg font-semibold">Cycle #{cycle?.cycle_number}</h3>
-                <p className="text-gray-500 text-sm">Started: {new Date(cycle?.started_at)?.toLocaleString()}</p>
+                <h3 className="text-lg font-semibold">Cycle #{cycle?.cycle_number || 'N/A'}</h3>
+                <p className="text-gray-500 text-sm">Started: {cycle?.started_at ? new Date(cycle.started_at).toLocaleString() : 'N/A'}</p>
               </div>
               <div className="flex items-center gap-2">
                 <IoMdTime className="text-gray-500" />
-                <span className="text-sm">{formatTime(cycle?.trade_cycle_age)}</span>
+                <span className="text-sm">{cycle?.trade_cycle_age ? formatTime(cycle.trade_cycle_age) : 'N/A'}</span>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
               <div className="bg-gray-50 rounded-lg p-3">
                 <p className="text-gray-500 text-sm">Average Price</p>
-                <p className="text-lg font-semibold">${cycle?.average_price?.toFixed(2)}</p>
+                <p className="text-lg font-semibold">${parseFloat(cycle?.average_price || 0).toFixed(2)}</p>
               </div>
               <div className="bg-gray-50 rounded-lg p-3">
                 <p className="text-gray-500 text-sm">Current Price</p>
-                <p className="text-lg font-semibold">${cycle?.current_market_price?.toFixed(2)}</p>
+                <p className="text-lg font-semibold">${parseFloat(cycle?.current_market_price || 0).toFixed(2)}</p>
               </div>
               <div className="bg-gray-50 rounded-lg p-3">
                 <p className="text-gray-500 text-sm">Accumulated Quantity</p>
-                <p className="text-lg font-semibold">{cycle?.accumulated_quantity}</p>
+                <p className="text-lg font-semibold">{cycle?.accumulated_quantity || 0}</p>
               </div>
               <div className="bg-gray-50 rounded-lg p-3">
                 <p className="text-gray-500 text-sm">Live Profit</p>
-                <p className={`text-lg font-semibold ${cycle?.live_profit >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                  ${cycle?.live_profit?.toFixed(2)}
+                <p className={`text-lg font-semibold ${parseFloat(cycle?.live_profit || 0) >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                  ${parseFloat(cycle?.live_profit || 0).toFixed(2)}
                 </p>
               </div>
             </div>
@@ -203,11 +203,11 @@ export default function Portfolio() {
                           {order.order_type}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">{order?.quantity}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">${order?.fill_price?.toFixed(2)}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">${order?.order_capital?.toFixed(2)}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{order?.quantity || 0}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">${parseFloat(order?.fill_price || 0).toFixed(2)}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">${parseFloat(order?.order_capital || 0).toFixed(2)}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {new Date(order.timestamp).toLocaleTimeString()}
+                        {order?.timestamp ? new Date(order.timestamp).toLocaleTimeString() : 'N/A'}
                       </td>
                     </tr>
                   ))}
@@ -238,7 +238,7 @@ export default function Portfolio() {
                   label: "Average Price",
                   color: "#52b202",
                   showMark: true,
-                  valueFormatter: (value) => `$${value?.toFixed(2)}`,
+                  valueFormatter: (value) => `$${value ? value.toFixed(2) : '0.00'}`,
                 }
               ]}
               height={400}

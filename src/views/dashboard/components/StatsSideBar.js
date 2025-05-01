@@ -31,8 +31,8 @@ const StatsSideBar = ({
                   currentProfit > 0 ? "text-green-500" : "text-red-500"
                 }`}
               >
-                {parseFloat(currentProfit).toFixed(3)} USDT (
-                {((currentProfit / usdtBal) * 100).toFixed(4)}
+                {parseFloat(currentProfit || 0)?.toFixed(3)} USDT (
+                {((parseFloat(currentProfit || 0) / parseFloat(usdtBal || 1)) * 100)?.toFixed(4)}
                 {"%"})
               </span>
               {/* <span className="mb-1">reset |</span> */}
@@ -78,13 +78,13 @@ const StatsSideBar = ({
           <div className="flex items-center justify-between">
             <span className="text-[14px]">Total USDT Used </span>
             <span className="text-yellow-500 rounded-md p-2 bg-yellow-100">
-              {parseFloat(totalUsdtUsed).toFixed(3)} USDT
+              {parseFloat(totalUsdtUsed || 0).toFixed(3)} USDT
             </span>
           </div>
           <div className="flex items-center justify-between">
             <span className="text-[14px]">Remaining USDT</span>
             <span className="text-green-500 rounded-md p-2 bg-green-100">
-              {parseFloat(remainingUsdt).toFixed(3)} USDT
+              {parseFloat(remainingUsdt || 0).toFixed(3)} USDT
             </span>
           </div>
         </div>

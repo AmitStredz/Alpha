@@ -229,7 +229,7 @@ export default function Dashboard() {
                   in your binance
                 </span>
                 <span className="font-semibold text-ellipsis overflow-hidden w-full">
-                  {Number(userData?.relevantBalances[1]?.free || 0).toFixed(4)}
+                  {Number(userData?.relevantBalances?.[1]?.free || 0).toFixed(4)}
                 </span>
               </div>
             </div>
@@ -250,7 +250,7 @@ export default function Dashboard() {
                   in your binance
                 </span>
                 <span className="font-semibold text-ellipsis overflow-hidden w-full">
-                  {Number(userData?.relevantBalances[0]?.free || 0).toFixed(4)}
+                  {Number(userData?.relevantBalances?.[0]?.free || 0).toFixed(4)}
                 </span>
               </div>
             </div>

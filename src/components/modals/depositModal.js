@@ -84,7 +84,7 @@ export default function DepositModal({ onClose, onConfirm, usdtBal}) {
             Set Initial Capital for Bot to Trade
           </span>
           <span className="text-[14px] sm:text-[16px]">
-            You have <span className="text-green-500">{usdtBal} USDT</span>{" "}
+            You have <span className="text-green-500">{usdtBal || 0} USDT</span>{" "}
             available in your wallet. To add more transfer funds from your
             funding wallet to spot or make a deposit.
           </span>

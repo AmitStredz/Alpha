@@ -72,12 +72,12 @@ export default function LoginPage() {
     let message = "";
     
     // Check if user has a subscription plan
-    if (userData.plan === null) {
+    if (userData?.plan === null) {
       redirectPath = '/pricing';
       message = "Redirecting to subscription plans...";
     } 
     // If user has a plan but hasn't connected to Binance
-    else if (userData.binance_connected === false) {
+    else if (userData?.binance_connected === false) {
       redirectPath = '/connect-binance';
       message = "Redirecting to Binance connection...";
     }

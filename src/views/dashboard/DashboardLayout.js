@@ -105,10 +105,10 @@ const DashboardLayout = () => {
   };
 
   return (
-    <div className="gradient-bg mx-auto h-full text-black font-poppins transition-all overflow-hidden">
+    <div className="gradient-bg mx-auto h-full text-black font-poppins font-semibold transition-all overflow-hidden">
       <DashboardHeader sideBarIsOpen={() => setSideBarIsOpen(!sideBarIsOpen)} />
 
-      <div className="flex transition-all ease-in-out duration-200 font-zona">
+      <div className="flex transition-all ease-in-out duration-200">
         {/* <div> */}
         {sideBarIsOpen && (
           <nav

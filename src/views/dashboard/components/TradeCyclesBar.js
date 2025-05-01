@@ -91,13 +91,13 @@ export default function TradeCyclesBar({
   }, [isBotEnabled, fetchData]);
 
   useEffect(() => {
-    setCurrentProfit(tradeData?.cumulative_profit);
+    setCurrentProfit(tradeData?.cumulative_profit || 0);
     setBotStatus(tradeData?.bot_status);
     setBotReason(tradeData?.reason_inactive);
-    setLiveMarketPrice(tradeData?.trade_cycles[0]?.current_market_price);
-    setTradeCycleNo(tradeData?.trade_cycles[0]?.cycle_number);
-    setTotalUsdtUsed(tradeData?.trade_cycles[0]?.used_capital);
-    setRemainingUsdt(tradeData?.trade_cycles[0]?.remaining_capital);
+    setLiveMarketPrice(tradeData?.trade_cycles?.[0]?.current_market_price);
+    setTradeCycleNo(tradeData?.trade_cycles?.[0]?.cycle_number);
+    setTotalUsdtUsed(tradeData?.trade_cycles?.[0]?.used_capital || 0);
+    setRemainingUsdt(tradeData?.trade_cycles?.[0]?.remaining_capital || 0);
   }, [tradeData]);
   return (
     <div className="flex flex-col gap-5">
@@ -135,13 +135,13 @@ export default function TradeCyclesBar({
                     <span>
                       Start date:{" "}
                       <span className="font-normal">
-                        {new Date(item?.started_at).toLocaleDateString()}
+                        {item?.started_at ? new Date(item?.started_at).toLocaleDateString() : 'N/A'}
                       </span>
                     </span>
                     <span>
                       Start time:{" "}
                       <span className="font-normal">
-                        {new Date(item?.started_at).toLocaleTimeString()}
+                        {item?.started_at ? new Date(item?.started_at).toLocaleTimeString() : 'N/A'}
                       </span>
                     </span>
                     <span>
@@ -161,7 +161,7 @@ export default function TradeCyclesBar({
                     <span>
                       Age:{" "}
                       <span className="font-normal">
-                        {formatTradeCycleAge(item?.trade_cycle_age)}
+                        {item?.trade_cycle_age ? formatTradeCycleAge(item?.trade_cycle_age) : 'N/A'}
                       </span>
                     </span>
                     <span>
@@ -207,11 +207,11 @@ export default function TradeCyclesBar({
             <tbody className="bg-white divide-y divide-gray-200">
             <tr className="hover:bg-gray-50 text-left text-sm text-gray-500">
             <td className="py-3 px-3">BNB/USDT</td>
-                <td className="py-3 px-3">{parseFloat(tradeData?.daily_profit).toFixed(3)} USDT</td>
+                <td className="py-3 px-3">{parseFloat(tradeData?.daily_profit || 0).toFixed(3)} USDT</td>
                 <td className="py-3 px-3">
-                  {parseFloat(tradeData?.cumulative_profit).toFixed(3)} USDT
+                  {parseFloat(tradeData?.cumulative_profit || 0).toFixed(3)} USDT
                 </td>
-                <td className="py-3 px-3">{tradeData?.bot_status}</td>
+                <td className="py-3 px-3">{tradeData?.bot_status || 'Inactive'}</td>
               </tr>
             </tbody>
           </table>
@@ -260,16 +260,15 @@ export default function TradeCyclesBar({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
-                    {selectedCycle.orders?.map((item, index) => (
-                                          <tr key={index} className="hover:bg-gray-50 text-left text-sm text-gray-500">
-
+                    {selectedCycle?.orders?.map((item, index) => (
+                      <tr key={index} className="hover:bg-gray-50 text-left text-sm text-gray-500">
                         <td className="py-3 px-3">
-                          {new Date(item?.timestamp).toLocaleDateString()}
+                          {item?.timestamp ? new Date(item?.timestamp).toLocaleDateString() : 'N/A'}
                         </td>
-                        <td className="py-3 px-3">{item?.order_capital}</td>
-                        <td className="py-3 px-3">{item?.quantity}</td>
-                        <td className="py-3 px-3">{item?.fill_price}</td>
-                        <td className="py-3 px-3">{item?.order_type}</td>
+                        <td className="py-3 px-3">{item?.order_capital || 0}</td>
+                        <td className="py-3 px-3">{item?.quantity || 0}</td>
+                        <td className="py-3 px-3">{item?.fill_price || 0}</td>
+                        <td className="py-3 px-3">{item?.order_type || 'Unknown'}</td>
                       </tr>
                     ))}
                   </tbody>

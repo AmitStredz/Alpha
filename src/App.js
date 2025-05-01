@@ -32,9 +32,9 @@ function App() {
         let redirectPath;
   
         // Determine the correct path based on user state
-        if (user.plan === null) {
+        if (user?.plan === null) {
           redirectPath = "/pricing";
-        } else if (user.binance_connected === false) {
+        } else if (user?.binance_connected === false) {
           redirectPath = "/connect-binance";
         } else {
           redirectPath = "/dashboard";
