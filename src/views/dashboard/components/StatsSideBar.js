@@ -80,20 +80,27 @@ const StatsSideBar = ({
         </div>
         <div className="flex flex-col gap-2 justify-between">
           <div className="flex items-center justify-between">
-            <span className="text-[14px]  flex flex-col">
-              Total USDT <span className="font-light text-[12px]">(TC: {tradeNumber})</span>{" "}
+            <span className="text-[14px]  flex flex-col items-start">
+              Total USDT{" "}
+              <span className=" text-[12px] text-yellow-500 rounded-md p-1 bg-yellow-100">
+                (TC: {tradeNumber})
+              </span>{" "}
             </span>
             <span className="text-yellow-500 rounded-md p-2 bg-yellow-100">
-              {parseFloat(totalUsdtUsed || 0).toFixed(3)} <span className="text-[12px]">USDT</span>
+              {parseFloat(totalUsdtUsed || 0).toFixed(3)}{" "}
+              <span className="text-[12px]">USDT</span>
             </span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-[14px] flex flex-col">
+            <span className="text-[14px] flex flex-col items-start">
               Remaining USDT{" "}
-              <span className="font-light text-[12px]">(TC: {tradeNumber})</span>
+              <span className="text-[12px] text-green-500 rounded-md p-1 bg-green-100">
+                (TC: {tradeNumber})
+              </span>
             </span>
             <span className="text-green-500 rounded-md p-2 bg-green-100">
-              {parseFloat(remainingUsdt || 0).toFixed(3)} <span className="text-[12px]">USDT</span>
+              {parseFloat(remainingUsdt || 0).toFixed(3)}{" "}
+              <span className="text-[12px]">USDT</span>
             </span>
           </div>
         </div>
