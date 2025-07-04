@@ -256,7 +256,7 @@ export default function FaqPage() {
             <h1 className="text-4xl sm:text-6xl font-bold mb-4 text-green-500">
               Frequently Asked Questions
             </h1>
-            <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-xl text-slate-300 max-w-2xl mx-auto">
               Everything you need to know about our DCA trading bot
             </p>
           </div>
@@ -280,22 +280,22 @@ export default function FaqPage() {
                     <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl flex items-center justify-center border border-blue-500/30">
                       {item.icon}
                     </div>
-                    <span className="text-lg sm:text-xl font-semibold text-slate-200">
+                    <span className="text-sm sm:text-xl font-semibold text-slate-200">
                       {item.question}
                     </span>
                   </div>
                   <div className="flex-shrink-0 ml-4">
                     {expandedItems.has(item.id) ? (
-                      <ChevronUp className="w-6 h-6 text-slate-400" />
+                      <ChevronUp className="w-4 h-4 sm:w-6 sm:h-6 text-slate-400" />
                     ) : (
-                      <ChevronDown className="w-6 h-6 text-slate-400" />
+                      <ChevronDown className="w-4 h-4 sm:w-6 sm:h-6 text-slate-400" />
                     )}
                   </div>
                 </button>
                 
                 {expandedItems.has(item.id) && (
                   <div className="px-6 pb-6">
-                    <div className="pl-16 text-slate-300">
+                    <div className="sm:pl-16 text-slate-300 text-xs sm:text-base">
                       {item.answer}
                     </div>
                   </div>
