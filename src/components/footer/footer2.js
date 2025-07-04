@@ -16,7 +16,7 @@ export default function Footer() {
       <div className="flex flex-col lg:flex-row justify-between gap-5 items-center  p-3 sm:p-10 h-full w-full">
         <div className="flex flex-col justify-between gap-10 h-full w-full sm:w-[40rem]">
           <div className="flex justify-between items-center">
-            <img src="/logo.png" alt="logo" className="w-20 sm:w-36"></img>
+            <img src="/logo.png" alt="logo" className="w-20 sm:w-36 cursor-pointer" onClick={()=>navigate("/")}></img>
             {/* <div className='flex gap-4 text-black h-full'>
                             <div className='text-green-500 rounded-full cursor-pointer'>
                                 <FaInstagram size={30} />
@@ -99,8 +99,8 @@ export default function Footer() {
           </ul> */}
           <ul className="flex flex-col gap-1 sm:gap-3 text-[12px] sm:text-[16px]">
             <li className=" font-semibold">Company</li>
-            <li>About Us</li>
-            <li>Contact</li>
+            <li className="cursor-pointer hover:underline" onClick={() => navigate('/about')}>About Us</li>
+            <li className="cursor-pointer hover:underline" onClick={() => window.open('https://wa.me/message/FO4OATZRWJ2RO1', '_blank')}>Contact</li>
             {/* <li>OctoBot for Businedd</li>
             <li>Terms</li>
             <li>Privacy Policy</li>
