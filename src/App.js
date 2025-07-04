@@ -16,6 +16,7 @@ import LandingPage from "./views/landingPage/landingPage";
 import Pricing from "./views/pricing/pricing";
 import ForgotPassword from "./views/login/forgotPassword";
 import TermsAndConditions from "./views/terms/termsAndConditions"
+import AboutUsPage from "./views/about/about";
 
 function App() {
   const auth = useAuth();
@@ -59,6 +60,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/about" element={<AboutUsPage />} />
         <Route path="/terms" element={<TermsAndConditions />} />
         <Route path="/forgot-password/:token?" element={<ForgotPassword />} />
       </Route>

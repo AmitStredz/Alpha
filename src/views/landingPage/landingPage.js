@@ -6,6 +6,7 @@ import Page2 from "./page2";
 import Page3 from "./page3";
 import Page4 from "./page4";
 import Page5 from "./page5";
+import FaqPage from "./faqPage";
 
 export default function LandingPage() {
   return (
@@ -19,6 +20,7 @@ export default function LandingPage() {
       <Page3/>
       <Page4/>
       <Page5/>
+      <FaqPage/>
       <Footer />
     </div>
   );

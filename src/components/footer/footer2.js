@@ -77,7 +77,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="flex flex-wrap justify-between gap-5 sm:p-5 text-white font-extralight w-full">
-          <ul className="flex flex-col gap-1 sm:gap-3 text-[12px] sm:text-[16px]">
+          {/* <ul className="flex flex-col gap-1 sm:gap-3 text-[12px] sm:text-[16px]">
             <li className=" font-semibold">Features</li>
             <li>Crypto Baskets</li>
             <li>DCA Investing</li>
@@ -96,16 +96,16 @@ export default function Footer() {
             <li>ChatGPT Predictions</li>
             <li>Scalping Signals</li>
             <li>Feedback</li>
-          </ul>
+          </ul> */}
           <ul className="flex flex-col gap-1 sm:gap-3 text-[12px] sm:text-[16px]">
             <li className=" font-semibold">Company</li>
             <li>About Us</li>
             <li>Contact</li>
-            <li>OctoBot for Businedd</li>
+            {/* <li>OctoBot for Businedd</li>
             <li>Terms</li>
             <li>Privacy Policy</li>
             <li>Referral Terms</li>
-            <li>Affiliate Terms</li>
+            <li>Affiliate Terms</li> */}
           </ul>
         </div>
         <div className="flex flex-col justify-end  h-full">
