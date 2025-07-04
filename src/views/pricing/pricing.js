@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PaymentModal from "../../components/modals/paymentModal";
 
-import Footer from "../../components/footer/footer";
+import Footer from "../../components/footer/footer2";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { FaCircleCheck } from "react-icons/fa6";
 import HomeHeader from "../../components/navbar/homeHeader";

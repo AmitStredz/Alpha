@@ -32,6 +32,7 @@ const AboutUsPage = () => {
   const navigate = useNavigate();
   useEffect(() => {
     setIsVisible(true);
+    window.scrollTo(0, 0);
   }, []);
 
   const features = [

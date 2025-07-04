@@ -66,11 +66,11 @@ function App() {
       </Route>
 
       {/* Protected Routes */}
-      <Route element={<ProtectedRoute />}>
+      {/* <Route element={<ProtectedRoute />}> */}
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/dashboard/*" element={<DashboardLayout />} />
         <Route path="/connect-binance" element={<ConnectBinance />} />
-      </Route>
+      {/* </Route> */}
 
       {/* Catch all route - Redirect to dashboard if authenticated, otherwise to landing page */}
       <Route

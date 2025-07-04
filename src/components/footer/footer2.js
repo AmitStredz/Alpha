@@ -109,7 +109,7 @@ export default function Footer() {
           </ul>
         </div>
         <div className="flex flex-col justify-end  h-full">
-          <img src="/hello.png" alt="helloLogo" className="w-60 sm:w-96"></img>
+          <img src="/hello.png" alt="helloLogo" className="w-60 sm:w-[28rem]"></img>
         </div>
       </div>
       <div className="bg-slate-400 w-screen h-[1px]"></div>

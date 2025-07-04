@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import img1 from "./assets/img1.png";
 
-import Footer from "../../components/footer/footer";
 import ConfirmModal from "../../components/modals/confirmModal";
 import { BASE_URL } from "../../api/api";
 import axios from "axios";
@@ -11,6 +10,7 @@ import FailureModal from "../../components/modals/failureModal";
 import { RotatingLines } from "react-loader-spinner";
 import { IoCopyOutline } from "react-icons/io5";
 import { TbCopyCheck } from "react-icons/tb";
+import Footer from "../../components/footer/footer2";
 
 export default function ConnectBinance() {
   // const [modalIsOpen, setModalIsOpen] = useState(false);
