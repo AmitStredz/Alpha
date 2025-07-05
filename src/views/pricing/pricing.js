@@ -94,7 +94,7 @@ export default function Pricing() {
       console.log("createOrderResp", createOrderResp);
 
       const options = {
-        key: "rzp_test_i2PpkMQpHSbv4w",
+        key: "rzp_live_50XjXUP5VQBizB",
         amount: amount,
         currency: currency,
         name: "Alpha Robotics LLP",
