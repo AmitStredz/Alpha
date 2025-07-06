@@ -21,7 +21,7 @@ export default function Pricing() {
       // secondaryPrice: "+ 18% GST",
       // secondaryPrice2: "₹2,745",
       //totalInPaise: 1799500,
-      totalInPaise: 10000,
+      totalInPaise: 1850000,
       descriptionList: [
         "Access to Alpha Trading Bot for 12 months",
         "Smart AI-based trading strategies",
