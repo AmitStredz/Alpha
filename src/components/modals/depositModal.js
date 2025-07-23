@@ -20,6 +20,11 @@ export default function DepositModal({ onClose, onConfirm, usdtBal}) {
     const token = localStorage.getItem("token");
     console.log("token: ", token);
 
+    if (balValue < 2000){
+      setErrorMessage("Minimum initial capital amount is 2000.");
+      return;
+    }
+
     if (!token) {
       alert("token not found. Please login again");
       // setIsLoading(false);
@@ -68,7 +73,7 @@ export default function DepositModal({ onClose, onConfirm, usdtBal}) {
     }
   };
   return (
-    <div
+    <div 
       className="w-screen h-screen fixed top-0 left-0 flex text-black font-poppins justify-center items-center backdrop-blur-xl z-[100]"
       data-aos="fade-in"
     >
