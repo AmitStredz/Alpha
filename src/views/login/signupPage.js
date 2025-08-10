@@ -122,7 +122,7 @@ export default function SignupPage() {
         timestamp: new Date().getTime(),
         email: inputs.email,
       });
-      console.log("api key", process.env.REACT_APP_BREVO_API_KEY);
+      // console.log("api key", process.env.REACT_APP_BREVO_API_KEY);
 
       // Brevo configuration
       const brevoConfig = {
@@ -385,7 +385,7 @@ export default function SignupPage() {
     }
 
     if (name === "email") {
-      console.log("it's email...");
+      // console.log("it's email...");
       if (/[A-Z]/.test(value)) {
         setEmailError("Email must not contain uppercase letters");
       }
