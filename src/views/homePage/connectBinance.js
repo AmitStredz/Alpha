@@ -42,29 +42,29 @@ export default function ConnectBinance() {
       return;
     }
 
-    // console.log("inputs: ", inputs);
-    // console.log("token: ", token);
-    // try {
-    //   const response = await axios.post(
-    //     `${BASE_URL}/binance/connect/`,
-    //     inputs,
-    //     {
-    //       headers: {
-    //         Authorization: `Token ${token}`, // ✅ Ensure correct format
-    //       },
-    //     }
-    //   );
+    console.log("inputs: ", inputs);
+    console.log("token: ", token);
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/binance/connect/`,
+        inputs,
+        {
+          headers: {
+            Authorization: `Token ${token}`, // ✅ Ensure correct format
+          },
+        }
+      );
 
-    //   console.log("response: ", response);
-    //   if (response?.status === 200) {
-    //     let userData = JSON.parse(localStorage.getItem("userData"));
-    //     userData.binance_connected = true; // Set to whatever plan value you need
-    //     localStorage.setItem("userData", JSON.stringify(userData));
-    //     setIsSuccessModal(true);
-    //     setTimeout(() => {
-    //       setIsSuccessModal(false);
-    //       navigate("/dashboard");
-    //       // window.location.reload();
+      console.log("response: ", response);
+      if (response?.status === 200) {
+        let userData = JSON.parse(localStorage.getItem("userData"));
+        userData.binance_connected = true; // Set to whatever plan value you need
+        localStorage.setItem("userData", JSON.stringify(userData));
+        setIsSuccessModal(true);
+        setTimeout(() => {
+          setIsSuccessModal(false);
+          navigate("/dashboard");
+          // window.location.reload();
         }, 3000);
       }
     } catch (error) {
