@@ -306,6 +306,64 @@ export default function FaqPage() {
         </div>
       </div>
 
+      {/* Partners Section */}
+      <div className="backdrop-blur-sm mb-8">
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 p-6">
+              <h3 className="text-2xl font-semibold text-slate-200 mb-6 text-center">Our Partners</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded-lg p-4 border border-blue-800/30">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0">
+                      <img 
+                        src="/assets/musthafa.png" 
+                        alt="Musthafa Pandikasala" 
+                        className="w-20 border-2 border-blue-400/50 object-cover"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-blue-300 mb-2">Musthafa Pandikasala</h4>
+                      <div className="space-y-1">
+                        <p className="text-sm text-slate-300">
+                          <span className="text-slate-400">DIN:</span> 10707696
+                        </p>
+                        <p className="text-sm text-slate-300">
+                          <span className="text-slate-400">Designated Partner since:</span> July 16, 2024
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-gradient-to-r from-emerald-900/20 to-teal-900/20 rounded-lg p-4 border border-emerald-800/30">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0">
+                      <img 
+                        src="/assets/musthafa.png" 
+                        alt="Noufal Alungal" 
+                        className="w-20 border-2 border-emerald-400/50 object-cover"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-emerald-300 mb-2">Noufal Alungal</h4>
+                      <p className="text-xs text-slate-400 mb-2">[Kongente Purakkal Noufal]</p>
+                      <div className="space-y-1">
+                        <p className="text-sm text-slate-300">
+                          <span className="text-slate-400">DIN:</span> 10707695
+                        </p>
+                        <p className="text-sm text-slate-300">
+                          <span className="text-slate-400">Designated Partner since:</span> July 16, 2024
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Risk Disclaimer */}
       <div className="backdrop-blur-sm mb-20">
         <div className="container mx-auto px-4 py-8">
