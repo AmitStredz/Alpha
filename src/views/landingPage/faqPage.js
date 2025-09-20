@@ -346,7 +346,6 @@ export default function FaqPage() {
                     </div>
                     <div className="flex-1">
                       <h4 className="font-semibold text-emerald-300 mb-2">Noufal Alungal</h4>
-                      <p className="text-xs text-slate-400 mb-2">[Kongente Purakkal Noufal]</p>
                       <div className="space-y-1">
                         <p className="text-sm text-slate-300">
                           <span className="text-slate-400">DIN:</span> 10707695
