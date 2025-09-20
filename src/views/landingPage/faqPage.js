@@ -339,7 +339,7 @@ export default function FaqPage() {
                   <div className="flex items-start gap-4">
                     <div className="flex-shrink-0">
                       <img 
-                        src="/assets/musthafa.png" 
+                        src="/assets/noufal.png"
                         alt="Noufal Alungal" 
                         className="w-20 border-2 border-emerald-400/50 object-cover"
                       />
