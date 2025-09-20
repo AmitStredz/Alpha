@@ -11,7 +11,7 @@ export default function Header() {
         className="w-14 sm:w-20 cursor-pointer"
         onClick={() => navigate("/")}
       ></img>
-      <div className="flex gap-5 text-[14px]">
+      {/* <div className="flex gap-5 text-[14px]">
         <Link
           to="/signup"
           className="p-2 px-4  sm:px-10 bg-white text-green-600 rounded-full"
@@ -24,11 +24,7 @@ export default function Header() {
         >
           Log In
         </Link>
-
-        {/* <button className='p-2 px-10 bg-green-500 text-white rounded-full' onClick={() => navigate('/login')}>
-                    Login
-                </button> */}
-      </div>
+      </div> */}
     </div>
   );
 }
