@@ -108,7 +108,14 @@ export default function Footer() {
             <li>Affiliate Terms</li> */}
           </ul>
         </div>
-        <div className="flex flex-col justify-end  h-full">
+        <div className="flex flex-col gap-2 text-white text-xs sm:text-sm font-light w-full">
+          <div className="font-semibold mb-1"> Address:</div>
+          <div>60/557 B4, First Floor,</div>
+          <div>Asia S Complex, Calicut,</div>
+          <div>Kozhikode, Kerala, India - 673001</div>
+          <div className="mt-1">Phone: <a href="tel:+918113000093" className="underline hover:text-green-400">+91-8113000093</a></div>
+        </div>
+        <div className="flex flex-col justify-end  h-full w-full">
           <img src="/hello.png" alt="helloLogo" className="w-60 sm:w-[28rem]"></img>
         </div>
       </div>
