@@ -6,11 +6,21 @@ import {
 } from "react-icons/md";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-// export default function Page3() {
-//   const accordianData = [
-//     {
-//       id: "01",
+export default function Page3() {
+  const accordianData = [
+    {
+      id: "01",
 
+      title: "Blockchain Solutions",
+      description:
+        "Revolutionize your business with blockchain powered decentralized ecosystems, leveraging smart contracts for unmatched transparency, efficiency, and trust.",
+      tags: [
+        "Crypto Games",
+        "Smart contract development",
+        "ICO (solana and Ethereum)",
+        "Token development",
+        "DAPP",
+      ],
     },
     {
       id: "02",
@@ -31,7 +41,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
       description:
         "Empower your business with flexible, high-performance ERP solutions that centralize operations, enhance productivity, and enable data-driven decisions",
       tags: [
-        "Financial Managem
+        "Financial Management",
+        "Supply Chain Management",
+        "HR Management",
+        "Project Management",
+        "Production Manufacturing",
+        "CRM",
       ],
     },
     {
@@ -57,7 +72,13 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
     },
     {
       id: "06",
-      title: "Other Sers",
+      title: "Other Services",
+      description:
+        "Inventing avant-garde mobile applications, dynamic websites and robust web apps, and SEO strategies driven by data to increase user engagement and monetization of business growth",
+      tags: [
+        "Logo design",
+        "Roadmap and Whitepaper design",
+        "Technical services",
         "Customer support/services",
       ],
     },
@@ -77,11 +98,11 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
           <div>
             <Accordion
               className="py-5"
-              // defaultExpanded={index === 0}
-              // style={{
-              //   backgroundColor: "transparent",
-              //   color: "white",
-              //   boxShadow: "none",
+              defaultExpanded={index === 0}
+              style={{
+                backgroundColor: "transparent",
+                color: "white",
+                boxShadow: "none",
               }}
             >
               <AccordionSummary

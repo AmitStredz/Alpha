@@ -49,7 +49,18 @@ function App() {
         if (window.location.pathname !== redirectPath) {
           navigate(redirectPath);
         }
-      }ut" element={<AboutUsPage />} />
+      }
+    // }
+  }, []);
+
+  return (
+    <Routes>
+      {/* Public Routes */}
+      <Route element={<PublicRoute />}>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/about" element={<AboutUsPage />} />
         <Route path="/terms" element={<TermsAndConditions />} />
         <Route path="/forgot-password/:token?" element={<ForgotPassword />} />
       </Route>
